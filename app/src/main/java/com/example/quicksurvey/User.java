@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
@@ -52,5 +53,12 @@ public class User extends AppCompatActivity {
             super.onBackPressed();
         }
 
+    }
+
+    public void addSurvey(View view)
+    {
+        Intent intent = new Intent(User.this, createSurvey.class);
+        intent.putExtra("surveyid", "random");
+        startActivity(intent);
     }
 }
