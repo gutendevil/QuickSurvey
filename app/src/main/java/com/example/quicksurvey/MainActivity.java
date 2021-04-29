@@ -25,9 +25,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), User.class);
-                intent.putExtra("Profile", username.getText().toString());
-                startActivity(intent);
+                String temp = username.getText().toString();
+                System.out.println(temp);
+                if(temp.equals("admin"))
+                {
+
+                    Intent intent = new Intent(getApplicationContext(), Admin.class);
+                    intent.putExtra("Profile", username.getText().toString());
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), User.class);
+                    intent.putExtra("Profile", username.getText().toString());
+                    startActivity(intent);
+                }
+
             }
         });
     }
