@@ -4,6 +4,9 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <item android:title="My Surveys"
+            android:id="@+id/mysurveys"
+            android:icon="@drawable/ic_history"/>
         <item android:id="@+id/settings"
             android:icon="@drawable/ic_settings"
             android:title="Settings"/>
