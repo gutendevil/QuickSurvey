@@ -88,7 +88,11 @@ public class User extends AppCompatActivity {
     public void addSurvey(View view)
     {
         Intent intent = new Intent(User.this, createSurvey.class);
-        intent.putExtra("surveyid", "random");
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(User.this);
+        databaseAccess.open();
+        int survid = databaseAccess.getMaxSurv();
+        databaseAccess.close();
+        intent.putExtra("surveyid", Integer.toString(survid));
         startActivity(intent);
     }
 }

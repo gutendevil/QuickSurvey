@@ -7,7 +7,7 @@
     tools:context=".createSurvey">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/question"
         android:layout_width="390dp"
         android:layout_height="96dp"
         android:layout_alignParentStart="true"
@@ -22,7 +22,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/option1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -36,7 +36,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/option2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -50,7 +50,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/option3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -61,11 +61,11 @@
         android:layout_marginLeft="19dp"
         android:layout_marginBottom="286dp"
         android:ems="10"
-        android:hint="Option c"
+        android:hint="Option C"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/option4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -90,6 +90,7 @@
         android:layout_marginLeft="43dp"
         android:layout_marginBottom="76dp"
         android:background="@drawable/button"
+        android:onClick="addQuestion"
         android:text="Add another question"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />

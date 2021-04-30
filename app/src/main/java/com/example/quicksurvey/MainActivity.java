@@ -3,10 +3,14 @@ package com.example.quicksurvey;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +39,25 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(getApplicationContext(), User.class);
-                    intent.putExtra("Profile", username.getText().toString());
-                    startActivity(intent);
+
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(MainActivity.this);
+                    databaseAccess.open();
+                    String temp2 = databaseAccess.getPassword(temp);
+                    databaseAccess.close();
+
+                    if(password.getText().toString().equals(temp2))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), User.class);
+                        intent.putExtra("Profile", username.getText().toString());
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Invalid Username or Password",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+
+
                 }
 
             }

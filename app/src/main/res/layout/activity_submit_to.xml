@@ -7,15 +7,31 @@
     tools:context=".submitTo">
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/surveyname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:clickable="false"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/grpno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="366dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:clickable="false"
         android:editable="false"
         android:ems="10"
@@ -28,73 +44,74 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
-        android:text="To"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="128dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="204dp"
-        android:editable="false"
-        android:text="Group No"
+        android:text="Name"
         android:textColor="#000000"
         android:textSize="24sp" />
 
     <RadioGroup
-        android:layout_width="388dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="76dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Organization" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Department" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Group" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="148dp"
-        android:text="Dep. Name"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
+        android:id="@+id/rdgrp1"
+        android:layout_width="385dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="217dp"
+        android:layout_marginEnd="13dp"
+        android:onClick="RadioButtonClicked1"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/org"
+            android:layout_width="196dp"
+            android:layout_height="wrap_content"
+            android:text="Organization" />
+
+        <RadioButton
+            android:id="@+id/dep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Department" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="394dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="253dp"
+        android:layout_marginEnd="4dp"
+        android:onClick="RadioButtonClicked2"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/grp"
+
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:text="Group" />
+
+        <RadioButton
+            android:id="@+id/indiv"
+            android:layout_width="186dp"
+            android:layout_height="wrap_content"
+            android:text="Individual" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/depname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="143dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="307dp"
         android:layout_marginEnd="29dp"
         android:layout_marginRight="29dp"
         android:clickable="false"
@@ -102,17 +119,114 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/finsbmt"
         android:layout_width="348dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="18dp"
         android:background="@drawable/button2"
         android:onClick="goToHome"
         android:text="Submit Successfully"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="104dp"
+        android:text="Deadline"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginRight="37dp"
+        android:ems="10"
+        android:hint="YYYY-MM-DD HH:MM:SS"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="172dp"
+        android:text="To"
+        android:textColor="#020202"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginBottom="258dp"
+        android:text="Dept. Name"
+        android:textColor="#0C0B0B"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginBottom="199dp"
+        android:text="Group_ID"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginBottom="126dp"
+        android:text="User_ID"
+        android:textColor="#FD000000"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="115dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
 </RelativeLayout>
