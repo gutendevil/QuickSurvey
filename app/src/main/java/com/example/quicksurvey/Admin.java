@@ -47,6 +47,9 @@ public class Admin extends AppCompatActivity {
                     case R.id.logout:
                         finish();
                         return true;
+                    case R.id.notifications:
+                        Intent intent2 = new Intent(Admin.this, notifications.class);
+                        startActivity(intent2);
                     default:
                         return false;
                 }

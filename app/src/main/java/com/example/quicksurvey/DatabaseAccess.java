@@ -146,6 +146,30 @@ public class DatabaseAccess {
         db.execSQL("insert into SurvApp values ('"+surv_id+"', '"+approv+"' , '"+status+"')");
     }
 
+    public Cursor getNotfications()
+    {
+        c = null;
+        String status = "pending";
+        c = db.rawQuery("select Survey_ID from SurvApp where Approval='"+status+"'",
+                null);
+
+        return c;
+    }
+
+    public void getApproval(int survid)
+    {
+        String status = "approve";
+        db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+survid+"'");
+
+    }
+
+    public void getCancel(int survid)
+    {
+        String status = "cancel";
+        db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+survid+"'");
+    }
+
+
 
 
 }

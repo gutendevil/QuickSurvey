@@ -32,9 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:layout_marginBottom="430dp"
+                android:padding="10dp"
                 android:text="Surveys Available..."
-                android:textSize="30sp"
-                android:padding="10dp"/>
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/button"
@@ -44,14 +44,11 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_button"
                 android:onClick="addSurvey"
+
                 android:text="+"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
 
         </LinearLayout>
@@ -67,6 +64,7 @@
                 android:gravity="start"
                 app:headerLayout="@layout/nav_header"
                 app:menu="@menu/drawer_menu" />
+
 
 
 

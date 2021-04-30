@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".notifications"></activity>
+        <activity android:name=".notifications2"></activity>
+        <activity android:name=".notifications" />
         <activity
             android:name=".Admin"
             android:theme="@style/AppTheme.NoActionBar" />
