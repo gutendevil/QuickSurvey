@@ -169,6 +169,16 @@ public class DatabaseAccess {
         db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+survid+"'");
     }
 
+    public Cursor getSurvforUser(String user_id)
+    {
+        c = null;
+        String status = "approve";
+        c = db.rawQuery("select SurvUser.Survey_ID from SurvUser" +
+                " inner join SurvApp where SurvUser.Survey_ID=SurvApp.Survey_ID " +
+                "and SurvUser.User_ID='"+user_id+"' and SurvApp.Approval='"+status+"' ", null);
+
+        return c;
+    }
 
 
 

@@ -8,19 +8,30 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class User extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    ListView surveyAvailable;
+    ArrayList<String> surveys;
+    ArrayAdapter adapter;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +39,8 @@ public class User extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         Intent intent = getIntent();
-        Toast.makeText(this, intent.getStringExtra("Profile"), Toast.LENGTH_SHORT).show();
-
+        user_id = intent.getStringExtra("Profile");
+        surveyAvailable = (ListView)findViewById(R.id.surveyAvailable);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,8 +77,36 @@ public class User extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(User.this);
+        databaseAccess.open();
+
+        Cursor cursor = databaseAccess.getSurvforUser(user_id);
+        surveys = new ArrayList<String>();
+
+        if(cursor!=null && cursor.getCount()>0)
+        {
+            while (cursor.moveToNext())
+            {
+                surveys.add(cursor.getString(cursor.getColumnIndex("Survey_ID")));
+            }
+            adapter = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys);
+
+            surveyAvailable.setAdapter(adapter);
+        }
+        else{
+            Toast.makeText(this, "No surveys Available", Toast.LENGTH_SHORT).show();
+        }
+        databaseAccess.close();
 
 
+        surveyAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = surveyAvailable.getItemAtPosition(position).toString();
+                Toast.makeText(User.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
