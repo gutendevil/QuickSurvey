@@ -19,6 +19,7 @@ public class Admin extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class Admin extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         Intent intent = getIntent();
-        Toast.makeText(this, intent.getStringExtra("Profile"), Toast.LENGTH_SHORT).show();
+        userid = intent.getStringExtra("Profile");
 
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -42,6 +43,8 @@ public class Admin extends AppCompatActivity {
                 {
                     case R.id.settings:
                         Intent intent = new Intent(Admin.this, settings.class);
+                        intent.putExtra("userid", userid);
+                        intent.putExtra("usertype", "admin");
                         startActivity(intent);
                         return true;
                     case R.id.logout:
@@ -84,7 +87,7 @@ public class Admin extends AppCompatActivity {
     public void addSurvey(View view)
     {
         Intent intent = new Intent(Admin.this, createSurvey.class);
-        intent.putExtra("surveyid", "random");
+
         startActivity(intent);
     }
 }

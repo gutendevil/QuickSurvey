@@ -21,8 +21,8 @@ public class submitTo extends AppCompatActivity {
     RadioButton dept;
     RadioButton grp;
     RadioButton indiv;
-
-
+    RadioGroup rdgrp1;
+    RadioGroup rdgrp2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,38 @@ public class submitTo extends AppCompatActivity {
         dept = (RadioButton)findViewById(R.id.dep);
         grp = (RadioButton)findViewById(R.id.grp);
         indiv = (RadioButton)findViewById(R.id.indiv);
+        rdgrp1 = (RadioGroup)findViewById(R.id.rdgrp1);
+        rdgrp2 = (RadioGroup)findViewById(R.id.rdgrp2);
 
+        rdgrp1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    grp.setChecked(false);
+                    indiv.setChecked(false);
+                }
+            }
+        });
+
+        rdgrp2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    dept.setChecked(false);
+                    org.setChecked(false);
+                }
+            }
+        });
 
 
 
@@ -54,15 +85,15 @@ public class submitTo extends AppCompatActivity {
         databaseAccess.open();
         databaseAccess.insertSurvey(survid, survname.getText().toString(), deadline.getText().toString());
         if(org.isChecked()){
-            //do nothing
+            databaseAccess.insertSurvinOrg(survid);
         }
         else if(dept.isChecked())
         {
-            //do nothing
+            databaseAccess.insertSurvinDept(survid, depname.getText().toString());
         }
         else if(grp.isChecked())
         {
-            //do nothing
+            databaseAccess.insertSurvinGrp(survid, grpno.getText().toString());
         }
         else if(indiv.isChecked()){
             databaseAccess.insertSurvinUser(survid, user_id.getText().toString());

@@ -55,6 +55,8 @@ public class User extends AppCompatActivity {
                 {
                     case R.id.settings:
                         Intent intent = new Intent(User.this, settings.class);
+                        intent.putExtra("usertype", "user");
+                        intent.putExtra("userid", user_id);
                         startActivity(intent);
                         return true;
                     case R.id.logout:
@@ -103,8 +105,13 @@ public class User extends AppCompatActivity {
         surveyAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = surveyAvailable.getItemAtPosition(position).toString();
-                Toast.makeText(User.this, text, Toast.LENGTH_SHORT).show();
+                int text = Integer.parseInt(surveyAvailable.getItemAtPosition(position).toString());
+                Intent intent = new Intent(User.this, attemptSurvey.class);
+                intent.putExtra("usertype", "user");
+                intent.putExtra("userid", user_id);
+                intent.putExtra("surveyid", text);
+                startActivity(intent);
+
             }
         });
 
@@ -127,6 +134,7 @@ public class User extends AppCompatActivity {
     public void addSurvey(View view)
     {
         Intent intent = new Intent(User.this, createSurvey.class);
+        intent.putExtra("userid", user_id);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(User.this);
         databaseAccess.open();
         int survid = databaseAccess.getMaxSurv();

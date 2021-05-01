@@ -68,7 +68,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -78,7 +78,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -106,7 +106,7 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/pass1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -119,7 +119,7 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editText10"
+        android:id="@+id/pass2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

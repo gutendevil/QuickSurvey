@@ -59,7 +59,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="217dp"
         android:layout_marginEnd="13dp"
-        android:onClick="RadioButtonClicked1"
         android:orientation="horizontal">
 
         <RadioButton
@@ -77,6 +76,7 @@
     </RadioGroup>
 
     <RadioGroup
+        android:id="@+id/rdgrp2"
         android:layout_width="394dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -84,7 +84,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="253dp"
         android:layout_marginEnd="4dp"
-        android:onClick="RadioButtonClicked2"
         android:orientation="horizontal">
 
         <RadioButton

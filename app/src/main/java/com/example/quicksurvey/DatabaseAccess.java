@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
@@ -179,6 +181,169 @@ public class DatabaseAccess {
 
         return c;
     }
+
+    public Cursor getQueFromSurv(int survid)
+    {
+        c = null;
+        c = db.rawQuery("select Question_ID from SurvQue where Survey_ID='"+survid+"'", null);
+        return c;
+    }
+
+    public String getQue(int que_id)
+    {
+        c = null;
+        c = db.rawQuery("select Name from Questions where Question_ID='"+que_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            while(c.moveToNext())
+            {
+                String que = c.getString(c.getColumnIndex("Name"));
+                return que;
+            }
+        }
+        else{
+            return "";
+        }
+
+        return "";
+    }
+
+    public int getoptid(int que_id)
+    {
+        c = null;
+        c = db.rawQuery("SELECT Option_ID FROM QueOpt WHERE Question_ID ='"+que_id+"'", null);
+
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+
+                int opt_id = Integer.parseInt(c.getString(c.getColumnIndex("Option_ID")));
+                return opt_id;
+            }
+            else{
+                return 0;
+            }
+        }
+
+        return 0;
+    }
+
+    public ArrayList<String> getOptions(int opt_id)
+    {
+        c = null;
+        c = db.rawQuery("select Option1, Option2, Option3, Option4 from Options where Option_ID='"+opt_id+"'",null);
+        ArrayList<String>options;
+        options = new ArrayList<>();
+        if(c.moveToFirst())
+        {
+            options.add(0, c.getString(c.getColumnIndex("Option1")));
+            options.add(1, c.getString(c.getColumnIndex("Option2")));
+            options.add(2, c.getString(c.getColumnIndex("Option3")));
+            options.add(3, c.getString(c.getColumnIndex("Option4")));
+
+            return options;
+        }
+
+        return null;
+    }
+
+    public int getMaxResp()
+    {
+        c = null;
+        c = db.rawQuery("select count(*) from Responses", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToNext())
+            {
+                int temp = Integer.parseInt(c.getString(c.getColumnIndex("count(*)")));
+                return temp+1;
+            }
+        }
+        else{
+            return 1;
+        }
+        return 1;
+    }
+
+    public void insertResp(int resp_id, int choice, String userid, int surveyid, int queid)
+    {
+        db.execSQL("insert into Responses values ('"+resp_id+"', '"+choice+"')");
+        db.execSQL("insert into UserResp values ('"+userid+"', '"+surveyid+"', '"+queid+"', '"+resp_id+"')");
+
+    }
+
+    public String findUser(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select Name from User where User_ID='"+user_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String name = c.getString(c.getColumnIndex("Name"));
+                return name;
+            }
+        }
+
+        return null;
+    }
+
+    public String findEmail(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select Email_ID from User where User_ID='"+user_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String name = c.getString(c.getColumnIndex("Email_ID"));
+                return name;
+            }
+        }
+
+        return null;
+    }
+
+    public void setemail(String email, String userid)
+    {
+        db.execSQL("update User set Email_ID='"+email+"' where User_ID='"+userid+"'");
+    }
+
+    public void setPassword(String passid, String userid)
+    {
+        db.execSQL("update User set Password='"+passid+"' where User_ID='"+userid+"'");
+    }
+
+    public void insertSurvinOrg(int surv_id)
+    {
+        db.execSQL("insert into SurvOrg values('"+surv_id+"')");
+        String approv = "class_bunker";
+        String status = "pending";
+        db.execSQL("insert into SurvApp values ('"+surv_id+"', '"+approv+"' , '"+status+"')");
+    }
+
+    public void insertSurvinDept(int surv_id, String dept_id)
+    {
+        db.execSQL("insert into SurvDept values('"+surv_id+"', '"+dept_id+"')");
+        String approv = "class_bunker";
+        String status = "pending";
+        db.execSQL("insert into SurvApp values ('"+surv_id+"', '"+approv+"' , '"+status+"')");
+    }
+
+    public void insertSurvinGrp(int surv_id, String grp_id)
+    {
+        db.execSQL("insert into SurvGrp values('"+surv_id+"', '"+grp_id+"')");
+        String approv = "class_bunker";
+        String status = "pending";
+        db.execSQL("insert into SurvApp values ('"+surv_id+"', '"+approv+"' , '"+status+"')");
+    }
+
 
 
 

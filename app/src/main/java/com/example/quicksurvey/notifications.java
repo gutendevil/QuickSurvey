@@ -60,4 +60,5 @@ public class notifications extends AppCompatActivity {
         });
 
     }
+
 }
