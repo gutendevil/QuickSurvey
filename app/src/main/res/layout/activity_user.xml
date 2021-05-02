@@ -26,15 +26,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="59dp"
-            android:layout_marginBottom="430dp"
-            android:padding="10dp"
-            android:text="Surveys Available..."
-            android:textSize="30sp" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button"
             android:layout_width="55dp"
@@ -60,12 +51,63 @@
             android:layout_marginLeft="2dp"
             android:layout_marginTop="55dp">
 
-            <ListView
-                android:id="@+id/surveyAvailable"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </ListView>
+
+                <ListView
+                    android:id="@+id/surveyAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="252dp"
+                    android:layout_height="49dp"
+                    android:text="Group"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/surveygrp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textview3"
+                    android:layout_width="111dp"
+                    android:layout_height="47dp"
+                    android:text="Department"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/surveydept"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="161dp"
+                    android:layout_height="37dp"
+                    android:text="Organization"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/surveyorg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
         </ScrollView>
 
 

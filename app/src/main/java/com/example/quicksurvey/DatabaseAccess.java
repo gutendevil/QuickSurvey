@@ -344,7 +344,56 @@ public class DatabaseAccess {
         db.execSQL("insert into SurvApp values ('"+surv_id+"', '"+approv+"' , '"+status+"')");
     }
 
+    public Cursor getSurvfromResp(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select distinct(Survey_ID) from UserResp where User_ID='"+user_id+"'", null);
+        return c;
+    }
 
+    public Cursor getSurvfromGrp(String grp_id)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from SurvGrp where Group_ID='"+grp_id+"'", null);
+        return c;
+    }
+
+    public Cursor getSurvfromDept(String dept_id)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from SurvDept where Dept_ID='"+dept_id+"'", null);
+        return c;
+    }
+
+    public Cursor getSurvfromOrg()
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from SurvOrg", null);
+        return c;
+    }
+
+    public Cursor getGrpfromUser(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select Group_ID from UserGrp where User_ID='"+user_id+"'", null);
+        return c;
+    }
+
+    public String getDeptfromUser(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select Dept_ID from UserDept where User_ID='"+user_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String dept_id = c.getString(c.getColumnIndex("Dept_ID"));
+                return dept_id;
+            }
+        }
+        return null;
+    }
 
 
 }

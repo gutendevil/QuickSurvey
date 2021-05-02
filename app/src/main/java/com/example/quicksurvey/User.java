@@ -29,8 +29,17 @@ public class User extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     ListView surveyAvailable;
+    ListView surveygrp;
+    ListView surveydept;
+    ListView surveyorg;
     ArrayList<String> surveys;
+    ArrayList<String> surveys2;
+    ArrayList<String> surveys3;
+    ArrayList<String> surveys4;
     ArrayAdapter adapter;
+    ArrayAdapter adapter2;
+    ArrayAdapter adapter3;
+    ArrayAdapter adapter4;
     String user_id;
 
     @Override
@@ -41,6 +50,9 @@ public class User extends AppCompatActivity {
         Intent intent = getIntent();
         user_id = intent.getStringExtra("Profile");
         surveyAvailable = (ListView)findViewById(R.id.surveyAvailable);
+        surveygrp = (ListView)findViewById(R.id.surveygrp);
+        surveydept = (ListView)findViewById(R.id.surveydept);
+        surveyorg = (ListView)findViewById(R.id.surveyorg);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,11 +65,17 @@ public class User extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
-                    case R.id.settings:
-                        Intent intent = new Intent(User.this, settings.class);
+                    case R.id.atsurveys:
+                        Intent intent = new Intent(User.this, pastSurveys.class);
                         intent.putExtra("usertype", "user");
                         intent.putExtra("userid", user_id);
                         startActivity(intent);
+                        return true;
+                    case R.id.settings:
+                        Intent intent2 = new Intent(User.this, settings.class);
+                        intent2.putExtra("usertype", "user");
+                        intent2.putExtra("userid", user_id);
+                        startActivity(intent2);
                         return true;
                     case R.id.logout:
                         finish();
@@ -91,14 +109,125 @@ public class User extends AppCompatActivity {
             {
                 surveys.add(cursor.getString(cursor.getColumnIndex("Survey_ID")));
             }
+
+            if(surveys.size()==0)
+            {
+                surveys.add("No survey available");
+            }
             adapter = new ArrayAdapter(getApplicationContext(),
                     android.R.layout.simple_list_item_1, surveys);
 
             surveyAvailable.setAdapter(adapter);
         }
         else{
-            Toast.makeText(this, "No surveys Available", Toast.LENGTH_SHORT).show();
+            if(surveys.size()==0)
+            {
+                surveys.add("No survey available");
+            }
+            adapter = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys);
+
+            surveyAvailable.setAdapter(adapter);
         }
+
+        surveys2 = new ArrayList<>();
+        Cursor cursor1 = databaseAccess.getGrpfromUser(user_id);
+        if(cursor1!=null && cursor1.getCount()>0)
+        {
+            Cursor cursor2;
+            while (cursor1.moveToNext())
+            {
+                String grp = cursor1.getString(cursor1.getColumnIndex("Group_ID"));
+                cursor2 = databaseAccess.getSurvfromGrp(grp);
+                if(cursor2!=null && cursor2.getCount()>0)
+                {
+                    surveys2.add(cursor2.getString(cursor2.getColumnIndex("Survey_ID")));
+                }
+            }
+
+            if(surveys2.size()==0)
+            {
+                surveys2.add("No survey available");
+            }
+            adapter2 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys2);
+
+            surveygrp.setAdapter(adapter2);
+        }
+        else{
+            if(surveys2.size()==0)
+            {
+                surveys2.add("No survey available");
+            }
+            adapter2 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys2);
+
+            surveygrp.setAdapter(adapter2);
+        }
+
+        surveys3 = new ArrayList<>();
+
+        String dept = databaseAccess.getDeptfromUser(user_id);
+        Cursor cursor2 = databaseAccess.getSurvfromDept(dept);
+        if(cursor2!=null && cursor2.getCount()>0)
+        {
+            while (cursor2.moveToNext())
+            {
+                surveys3.add(cursor2.getString(cursor2.getColumnIndex("Survey_ID")));
+            }
+
+            if(surveys3.size()==0)
+            {
+                surveys3.add("No survey available");
+            }
+
+            adapter3 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys3);
+            surveydept.setAdapter(adapter3);
+        }
+        else{
+            if(surveys3.size()==0)
+            {
+                surveys3.add("No survey available");
+            }
+
+            adapter3 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys3);
+            surveydept.setAdapter(adapter3);
+        }
+
+        surveys4 = new ArrayList<>();
+        Cursor cursor3 = databaseAccess.getSurvfromOrg();
+        if(cursor3!=null && cursor3.getCount()>0)
+        {
+            while (cursor3.moveToNext())
+            {
+                surveys4.add(cursor3.getString(cursor3.getColumnIndex("Survey_ID")));
+            }
+
+            if(surveys4.size()==0)
+            {
+                surveys4.add("No survey available");
+            }
+
+            adapter4 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys4);
+
+            surveyorg.setAdapter(adapter4);
+        }
+        else {
+            if(surveys4.size()==0)
+            {
+                surveys4.add("No survey available");
+            }
+
+            adapter4 = new ArrayAdapter(getApplicationContext(),
+                    android.R.layout.simple_list_item_1, surveys4);
+
+            surveyorg.setAdapter(adapter4);
+        }
+
+
         databaseAccess.close();
 
 
@@ -135,6 +264,9 @@ public class User extends AppCompatActivity {
     {
         Intent intent = new Intent(User.this, createSurvey.class);
         intent.putExtra("userid", user_id);
+        intent.putExtra("usertype", "user");
+
+
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(User.this);
         databaseAccess.open();
         int survid = databaseAccess.getMaxSurv();

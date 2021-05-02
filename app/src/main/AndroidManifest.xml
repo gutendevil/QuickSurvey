@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".attemptSurvey"></activity>
+        <activity android:name=".pastSurveys"></activity>
+        <activity android:name=".attemptSurvey" />
         <activity android:name=".notifications2" />
         <activity android:name=".notifications" />
         <activity

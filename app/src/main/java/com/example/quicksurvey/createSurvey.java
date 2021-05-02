@@ -15,6 +15,8 @@ public class createSurvey extends AppCompatActivity {
     EditText option3;
     EditText option4;
     int survid;
+    String user_id;
+    String usertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,17 @@ public class createSurvey extends AppCompatActivity {
 
         Intent intent = getIntent();
         survid = Integer.parseInt(intent.getStringExtra("surveyid"));
+        user_id = intent.getStringExtra("userid");
+        usertype = intent.getStringExtra("usertype");
+
+
     }
 
     public void submit(View view)
     {
         Intent intent = new Intent(createSurvey.this, submitTo.class);
+        intent.putExtra("usertype", usertype);
+        intent.putExtra("userid", user_id);
         intent.putExtra("surveyid", Integer.toString(survid));
         startActivity(intent);
     }

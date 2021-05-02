@@ -23,6 +23,8 @@ public class submitTo extends AppCompatActivity {
     RadioButton indiv;
     RadioGroup rdgrp1;
     RadioGroup rdgrp2;
+    String userid;
+    String usertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,9 @@ public class submitTo extends AppCompatActivity {
 
         Intent intent = getIntent();
         survid =  Integer.parseInt(intent.getStringExtra("surveyid"));
+        userid = intent.getStringExtra("userid");
+        usertype = intent.getStringExtra("usertype");
+
         survname = (EditText)findViewById(R.id.surveyname);
         deadline = (EditText)findViewById(R.id.deadline);
         depname = (EditText)findViewById(R.id.depname);
@@ -99,8 +104,21 @@ public class submitTo extends AppCompatActivity {
             databaseAccess.insertSurvinUser(survid, user_id.getText().toString());
         }
         databaseAccess.close();
-        Intent intent = new Intent(submitTo.this, User.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        if(usertype.equals("user"))
+        {
+            Intent intent = new Intent(submitTo.this, User.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("userid", userid);
+            intent.putExtra("usertype", "user");
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(submitTo.this, Admin.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("userid", userid);
+            intent.putExtra("usertype", "admin");
+            startActivity(intent);
+        }
+
     }
 }
