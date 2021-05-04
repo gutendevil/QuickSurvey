@@ -22,7 +22,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class User extends AppCompatActivity {
 
@@ -48,7 +50,8 @@ public class User extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         Intent intent = getIntent();
-        user_id = intent.getStringExtra("Profile");
+        user_id = intent.getStringExtra("userid");
+        Toast.makeText(this, user_id, Toast.LENGTH_SHORT).show();
         surveyAvailable = (ListView)findViewById(R.id.surveyAvailable);
         surveygrp = (ListView)findViewById(R.id.surveygrp);
         surveydept = (ListView)findViewById(R.id.surveydept);
@@ -65,6 +68,12 @@ public class User extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
+                    case R.id.mysurveys:
+                        Intent intent1 = new Intent(User.this, mysurveys.class);
+                        intent1.putExtra("usertype", "user");
+                        intent1.putExtra("userid", user_id);
+                        startActivity(intent1);
+                        return true;
                     case R.id.atsurveys:
                         Intent intent = new Intent(User.this, pastSurveys.class);
                         intent.putExtra("usertype", "user");
@@ -100,7 +109,9 @@ public class User extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(User.this);
         databaseAccess.open();
 
-        Cursor cursor = databaseAccess.getSurvforUser(user_id);
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        Cursor cursor = databaseAccess.getSurvforUser(user_id, timeStamp);
         surveys = new ArrayList<String>();
 
         if(cursor!=null && cursor.getCount()>0)

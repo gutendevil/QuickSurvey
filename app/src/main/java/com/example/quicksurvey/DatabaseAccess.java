@@ -60,10 +60,11 @@ public class DatabaseAccess {
         return null;
     }
 
-    public void insertSurvey(int id, String name, String deadline)
+    public void insertSurvey(int id, String name, String deadline, String user_id)
     {
         String access = "yes";
-        String sql = "insert into Survey values ('"+id+"', '"+name+"', '"+access+"', '"+deadline+"')";
+        String sql = "insert into Survey values ('"+id+"', '"+name+"', '"+access+"'," +
+                " '"+deadline+"', '"+user_id+"')";
         db.execSQL(sql);
     }
 
@@ -185,13 +186,18 @@ public class DatabaseAccess {
         db.execSQL("DELETE FROM SurvApp WHERE Approval = '"+status+"';");
     }
 
-    public Cursor getSurvforUser(String user_id)
+    public Cursor getSurvforUser(String user_id, String timestamp)
     {
         c = null;
         String status = "approve";
+        String access = "yes";
         c = db.rawQuery("select SurvUser.Survey_ID from SurvUser" +
                 " inner join SurvApp where SurvUser.Survey_ID=SurvApp.Survey_ID " +
-                "and SurvUser.User_ID='"+user_id+"' and SurvApp.Approval='"+status+"' ", null);
+                "and SurvUser.Survey_ID in (" +
+                "select Survey_ID from Survey WHERE " +
+                "Accessibility = '"+access+"' and Deadline>'"+timestamp+"')" +
+                "and SurvUser.User_ID='"+user_id+"' " +
+                "and SurvApp.Approval='"+status+"' ", null);
 
         return c;
     }
@@ -478,6 +484,24 @@ public class DatabaseAccess {
             }
         }
         return 0;
+    }
+
+    public Cursor getLiveSurveys(String user_id, String deadline)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from Survey where User_ID='"+user_id+"' and" +
+                " Deadline>'"+deadline+"'", null);
+
+        return c;
+    }
+
+    public Cursor getPastSurveys(String user_id, String deadline)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from Survey where User_ID='"+user_id+"' and" +
+                " Deadline<='"+deadline+"'", null);
+
+        return c;
     }
 
 

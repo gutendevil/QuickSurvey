@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 {
 
                     Intent intent = new Intent(getApplicationContext(), Admin.class);
-                    intent.putExtra("Profile", username.getText().toString());
+                    intent.putExtra("userid", username.getText().toString());
                     startActivity(intent);
                 }
                 else{
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     if(password.getText().toString().equals(temp2))
                     {
                         Intent intent = new Intent(getApplicationContext(), User.class);
-                        intent.putExtra("Profile", username.getText().toString());
+                        intent.putExtra("userid", username.getText().toString());
                         startActivity(intent);
                     }
                     else{

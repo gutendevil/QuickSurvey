@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class pastresponse extends AppCompatActivity {
+public class seeresults extends AppCompatActivity {
 
     TextView pastque;
     TextView opt1;
@@ -60,7 +60,7 @@ public class pastresponse extends AppCompatActivity {
         view3 = (View)findViewById(R.id.view3);
         view4 = (View)findViewById(R.id.view4);
 
-        databaseAccess = DatabaseAccess.getInstance(pastresponse.this);
+        databaseAccess = DatabaseAccess.getInstance(seeresults.this);
         databaseAccess.open();
         cursor = databaseAccess.getQueFromSurv(surv_id);
         if(cursor != null && cursor.getCount()>0)
@@ -109,11 +109,9 @@ public class pastresponse extends AppCompatActivity {
                         ViewGroup.LayoutParams.MATCH_PARENT, optper3));
                 view4.setLayoutParams(new LinearLayout.LayoutParams(0,
                         ViewGroup.LayoutParams.MATCH_PARENT, optper4));
-                int resp_id = databaseAccess.getRespFromUser(user_id,surv_id,que_id);
 
-                String getOfferedAns = databaseAccess.offeredAns(resp_id);
-                System.out.println(getOfferedAns);
-                if(getOfferedAns.equals("1"))
+
+                if(optper1>=Math.max(optper2, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.selected);
                     view2.setBackgroundResource(R.color.notselected);
@@ -121,21 +119,24 @@ public class pastresponse extends AppCompatActivity {
                     view4.setBackgroundResource(R.color.notselected);
 
                 }
-                else if(getOfferedAns.equals("2"))
+
+                if(optper2>=Math.max(optper1, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.selected);
                     view3.setBackgroundResource(R.color.notselected);
                     view4.setBackgroundResource(R.color.notselected);
                 }
-                else if(getOfferedAns.equals("3"))
+
+                if(optper3>=Math.max(optper2, Math.max(optper1, optper4)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.notselected);
                     view3.setBackgroundResource(R.color.selected);
                     view4.setBackgroundResource(R.color.notselected);
                 }
-                else if(getOfferedAns.equals("4"))
+
+                if(optper4>=Math.max(optper2, Math.max(optper3, optper1)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.notselected);
@@ -157,12 +158,12 @@ public class pastresponse extends AppCompatActivity {
             databaseAccess.close();
             if(usertype.equals("user"))
             {
-                Intent intent = new Intent(pastresponse.this, User.class);
+                Intent intent = new Intent(seeresults.this, User.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             else{
-                Intent intent = new Intent(pastresponse.this, Admin.class);
+                Intent intent = new Intent(seeresults.this, Admin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -213,11 +214,10 @@ public class pastresponse extends AppCompatActivity {
                         ViewGroup.LayoutParams.MATCH_PARENT, optper3));
                 view4.setLayoutParams(new LinearLayout.LayoutParams(0,
                         ViewGroup.LayoutParams.MATCH_PARENT, optper4));
-                int resp_id = databaseAccess.getRespFromUser(user_id,surv_id,que_id);
 
-                String getOfferedAns = databaseAccess.offeredAns(resp_id);
-                System.out.println(getOfferedAns);
-                if(getOfferedAns.equals("1"))
+
+
+                if(optper1>=Math.max(optper2, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.selected);
                     view2.setBackgroundResource(R.color.notselected);
@@ -226,7 +226,7 @@ public class pastresponse extends AppCompatActivity {
 
                 }
 
-                if(getOfferedAns.equals("2"))
+                if(optper2>=Math.max(optper1, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.selected);
@@ -234,7 +234,7 @@ public class pastresponse extends AppCompatActivity {
                     view4.setBackgroundResource(R.color.notselected);
                 }
 
-                if(getOfferedAns.equals("3"))
+                if(optper3>=Math.max(optper2, Math.max(optper1, optper4)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.notselected);
@@ -242,7 +242,7 @@ public class pastresponse extends AppCompatActivity {
                     view4.setBackgroundResource(R.color.notselected);
                 }
 
-                if(getOfferedAns.equals("4"))
+                if(optper4>=Math.max(optper2, Math.max(optper3, optper1)))
                 {
                     view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.notselected);
@@ -256,14 +256,14 @@ public class pastresponse extends AppCompatActivity {
                 databaseAccess.close();
                 if(usertype.equals("user"))
                 {
-                    Intent intent = new Intent(pastresponse.this, User.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent intent = new Intent(seeresults.this, User.class);
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(pastresponse.this, Admin.class);
+                    Intent intent = new Intent(seeresults.this, Admin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);

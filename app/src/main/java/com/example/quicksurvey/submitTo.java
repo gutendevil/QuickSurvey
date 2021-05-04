@@ -88,7 +88,8 @@ public class submitTo extends AppCompatActivity {
     {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(submitTo.this);
         databaseAccess.open();
-        databaseAccess.insertSurvey(survid, survname.getText().toString(), deadline.getText().toString());
+        databaseAccess.insertSurvey(survid,
+                survname.getText().toString(), deadline.getText().toString(), userid);
         if(org.isChecked()){
             databaseAccess.insertSurvinOrg(survid);
         }
@@ -104,21 +105,13 @@ public class submitTo extends AppCompatActivity {
             databaseAccess.insertSurvinUser(survid, user_id.getText().toString());
         }
         databaseAccess.close();
-        if(usertype.equals("user"))
-        {
-            Intent intent = new Intent(submitTo.this, User.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("userid", userid);
-            intent.putExtra("usertype", "user");
-            startActivity(intent);
-        }
-        else{
-            Intent intent = new Intent(submitTo.this, Admin.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("userid", userid);
-            intent.putExtra("usertype", "admin");
-            startActivity(intent);
-        }
+        Intent intent = new Intent(submitTo.this, User.class);
+
+        intent.putExtra("userid", userid);
+        intent.putExtra("usertype", usertype);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
 
     }
 }

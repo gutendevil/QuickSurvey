@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Admin extends AppCompatActivity {
 
@@ -62,6 +64,12 @@ public class Admin extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
+                    case R.id.mysurveys:
+                        Intent intent1 = new Intent(Admin.this, mysurveys.class);
+                        intent1.putExtra("usertype", "admin");
+                        intent1.putExtra("userid", user_id);
+                        startActivity(intent1);
+                        return true;
                     case R.id.atsurveys:
                         Intent intent = new Intent(Admin.this, pastSurveys.class);
                         intent.putExtra("usertype", "admin");
@@ -103,7 +111,10 @@ public class Admin extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(Admin.this);
         databaseAccess.open();
 
-        Cursor cursor = databaseAccess.getSurvforUser(user_id);
+
+        String timeStamp = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        Cursor cursor = databaseAccess.getSurvforUser(user_id, timeStamp);
         surveys = new ArrayList<String>();
 
         if(cursor!=null && cursor.getCount()>0)
