@@ -169,6 +169,20 @@ public class DatabaseAccess {
     {
         String status = "cancel";
         db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+survid+"'");
+
+        db.execSQL("DELETE FROM Options WHERE Option_ID IN" +
+                "(SELECT Option_ID FROM Questions WHERE Question_ID IN" +
+                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID IN" +
+                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"')));");
+
+        db.execSQL("DELETE FROM Questions WHERE Question_ID IN " +
+                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID IN" +
+                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"'));");
+
+        db.execSQL("DELETE FROM SurvQue WHERE Survey_ID IN" +
+                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"');");
+
+        db.execSQL("DELETE FROM SurvApp WHERE Approval = '"+status+"';");
     }
 
     public Cursor getSurvforUser(String user_id)
@@ -393,6 +407,77 @@ public class DatabaseAccess {
             }
         }
         return null;
+    }
+
+    public int getRespFromUser(String user_id, int surv_id, int que_id)
+    {
+        c = null;
+        c = db.rawQuery("select Response_ID from UserResp where User_ID='"+user_id+"' and" +
+                " Survey_ID='"+surv_id+"' and Question_ID='"+que_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                int resp_id = c.getInt(c.getColumnIndex("Response_ID"));
+                return resp_id;
+            }
+        }
+
+        return -1;
+    }
+
+    public String offeredAns(int resp_id)
+    {
+        c = null;
+        c = db.rawQuery("select OfferedAns from Responses where Response_ID='"+resp_id+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String offans = c.getString(c.getColumnIndex("OfferedAns"));
+                return offans;
+            }
+        }
+
+        return "";
+    }
+
+
+
+    public int getOptcount(int offered_ans, int que_id)
+    {
+        c = null;
+        c = db.rawQuery("select count(*) from Responses where OfferedAns='"+offered_ans+"' " +
+                "and Response_ID in (SELECT Response_ID from UserResp where Question_ID='"+que_id+"')",
+                null);
+
+        if(c!= null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                int cn = c.getInt(c.getColumnIndex("count(*)"));
+                return cn;
+            }
+        }
+
+        return 0;
+    }
+
+    public int getRespCount(int surv_id, String userid)
+    {
+        c = null;
+        c = db.rawQuery("select count(Response_ID) from UserResp where Survey_ID='"+surv_id+"'" +
+                " and User_ID='"+userid+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                int count = c.getInt(c.getColumnIndex("count(Response_ID)"));
+                return count;
+            }
+        }
+        return 0;
     }
 
 

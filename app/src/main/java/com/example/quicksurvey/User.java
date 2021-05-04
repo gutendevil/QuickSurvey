@@ -107,7 +107,14 @@ public class User extends AppCompatActivity {
         {
             while (cursor.moveToNext())
             {
-                surveys.add(cursor.getString(cursor.getColumnIndex("Survey_ID")));
+                int surv_id = Integer.parseInt(cursor.getString(
+                        cursor.getColumnIndex("Survey_ID")));
+
+                if(databaseAccess.getRespCount(surv_id,user_id)==0)
+                {
+                    surveys.add(Integer.toString(surv_id));
+                }
+
             }
 
             if(surveys.size()==0)
@@ -141,7 +148,14 @@ public class User extends AppCompatActivity {
                 cursor2 = databaseAccess.getSurvfromGrp(grp);
                 if(cursor2!=null && cursor2.getCount()>0)
                 {
-                    surveys2.add(cursor2.getString(cursor2.getColumnIndex("Survey_ID")));
+                    int surv_id = Integer.parseInt(cursor2.getString(
+                            cursor2.getColumnIndex("Survey_ID")));
+
+                    if(databaseAccess.getRespCount(surv_id,user_id)==0)
+                    {
+                        surveys2.add(Integer.toString(surv_id));
+                    }
+
                 }
             }
 
@@ -173,7 +187,13 @@ public class User extends AppCompatActivity {
         {
             while (cursor2.moveToNext())
             {
-                surveys3.add(cursor2.getString(cursor2.getColumnIndex("Survey_ID")));
+                int surv_id = Integer.parseInt(cursor2.getString(
+                        cursor2.getColumnIndex("Survey_ID")));
+
+                if(databaseAccess.getRespCount(surv_id,user_id)==0)
+                {
+                    surveys3.add(Integer.toString(surv_id));
+                }
             }
 
             if(surveys3.size()==0)
@@ -202,7 +222,14 @@ public class User extends AppCompatActivity {
         {
             while (cursor3.moveToNext())
             {
-                surveys4.add(cursor3.getString(cursor3.getColumnIndex("Survey_ID")));
+
+                int surv_id = Integer.parseInt(cursor3.getString(
+                        cursor3.getColumnIndex("Survey_ID")));
+
+                if(databaseAccess.getRespCount(surv_id,user_id)==0)
+                {
+                    surveys4.add(Integer.toString(surv_id));
+                }
             }
 
             if(surveys4.size()==0)
@@ -244,6 +271,41 @@ public class User extends AppCompatActivity {
             }
         });
 
+        surveygrp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int text = Integer.parseInt(surveygrp.getItemAtPosition(position).toString());
+                Intent intent = new Intent(User.this, attemptSurvey.class);
+                intent.putExtra("usertype", "user");
+                intent.putExtra("userid", user_id);
+                intent.putExtra("surveyid", text);
+                startActivity(intent);
+            }
+        });
+
+        surveydept.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int text = Integer.parseInt(surveydept.getItemAtPosition(position).toString());
+                Intent intent = new Intent(User.this, attemptSurvey.class);
+                intent.putExtra("usertype", "user");
+                intent.putExtra("userid", user_id);
+                intent.putExtra("surveyid", text);
+                startActivity(intent);
+            }
+        });
+
+        surveyorg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int text = Integer.parseInt(surveyorg.getItemAtPosition(position).toString());
+                Intent intent = new Intent(User.this, attemptSurvey.class);
+                intent.putExtra("usertype", "user");
+                intent.putExtra("userid", user_id);
+                intent.putExtra("surveyid", text);
+                startActivity(intent);
+            }
+        });
 
     }
 
