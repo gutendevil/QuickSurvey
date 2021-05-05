@@ -76,6 +76,12 @@ public class Admin extends AppCompatActivity {
                         intent.putExtra("userid", user_id);
                         startActivity(intent);
                         return true;
+                    case R.id.calendar:
+                        Intent intent3 = new Intent(Admin.this, calendar.class);
+                        intent3.putExtra("usertype", "admin");
+                        intent3.putExtra("userid", user_id);
+                        startActivity(intent3);
+                        return true;
                     case R.id.settings:
                         Intent intent2 = new Intent(Admin.this, settings.class);
                         intent2.putExtra("usertype", "admin");

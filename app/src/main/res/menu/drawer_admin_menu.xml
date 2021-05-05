@@ -14,6 +14,9 @@
             android:id="@+id/atsurveys"
             android:icon="@drawable/ic_history"
             />
+        <item android:title="Calendar"
+            android:id="@+id/calendar"
+            android:icon="@drawable/ic_event_black_24dp"/>
         <item android:title="Notifications"
             android:id="@+id/notifications"
             android:icon="@drawable/ic_notifications_black_24dp"/>
