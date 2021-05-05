@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
@@ -152,8 +154,14 @@ public class DatabaseAccess {
     public Cursor getNotfications()
     {
         c = null;
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                format(Calendar.getInstance().getTime());
+
         String status = "pending";
-        c = db.rawQuery("select Survey_ID from SurvApp where Approval='"+status+"'",
+        String status2 = "tocancel";
+        c = db.rawQuery("select Survey_ID from SurvApp where (Approval='"+status+"' or" +
+                        " Approval='"+status2+"') and Survey_ID in (select Survey_ID from Survey" +
+                        " where Deadline>'"+timeStamp+"')",
                 null);
 
         return c;
@@ -183,7 +191,20 @@ public class DatabaseAccess {
         db.execSQL("DELETE FROM SurvQue WHERE Survey_ID IN" +
                 "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"');");
 
+        db.execSQL("DELETE FROM SurvOrg where Survey_ID in (SELECT\n" +
+                "Survey_ID from SurvApp where Approval='"+status+"');");
+
+        db.execSQL("DELETE FROM SurvUser where Survey_ID in (SELECT\n" +
+                "Survey_ID from SurvApp where Approval='"+status+"');");
+
+        db.execSQL("DELETE FROM SurvDept where Survey_ID in (SELECT\n" +
+                "Survey_ID from SurvApp where Approval='"+status+"');");
+
+        db.execSQL("DELETE FROM SurvGrp where Survey_ID in (SELECT\n" +
+                "Survey_ID from SurvApp where Approval='"+status+"');");
+
         db.execSQL("DELETE FROM SurvApp WHERE Approval = '"+status+"';");
+
     }
 
     public Cursor getSurvforUser(String user_id, String timestamp)
@@ -523,5 +544,64 @@ public class DatabaseAccess {
         return c;
     }
 
+    public void createTable()
+    {
+        db.execSQL("create table Data (Name varchar(200), Option1 char(10), Option2 char(10)," +
+                " Option3 char(10), Option4 char(10))");
+    }
 
+    public void insertIntoData(String name, String opt1, String opt2, String opt3, String opt4)
+    {
+        db.execSQL("insert into Data values('"+name+"', '"+opt1+"', '"+opt2+"', '"+opt3+"', " +
+                "'"+opt4+"')");
+    }
+
+    public Cursor readData()
+    {
+        c = null;
+        c = db.rawQuery("select * from Data", null);
+        return c;
+    }
+
+    public void dropIfExists(String tableName) {
+
+
+        String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
+        try (Cursor cursor = db.rawQuery(query, null)) {
+            if(cursor!=null) {
+                if(cursor.getCount()>0) {
+                   cursor.close();
+                   db.execSQL("drop table Data");
+                }
+            }
+
+        }
+
+
+    }
+
+
+    public String approval(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select Approval from SurvApp where Survey_ID='"+surv_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String temp = c.getString(0);
+                return temp;
+            }
+
+        }
+
+        return "";
+    }
+
+    public void toCancel(int surv_id)
+    {
+        String status = "tocancel";
+        db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+surv_id+"'");
+    }
 }

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="approvesurvey"
-            android:text="Approve" />
+            android:text="Yes" />
 
         <Button
             android:id="@+id/cancel"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="cancelsurvey"
-            android:text="@android:string/cancel" />
+            android:text="No" />
 
     </LinearLayout>
 
