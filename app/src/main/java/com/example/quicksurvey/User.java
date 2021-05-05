@@ -80,6 +80,12 @@ public class User extends AppCompatActivity {
                         intent.putExtra("userid", user_id);
                         startActivity(intent);
                         return true;
+                    case R.id.calendar:
+                        Intent intent3 = new Intent(User.this, calendar.class);
+                        intent3.putExtra("usertype", "user");
+                        intent3.putExtra("userid", user_id);
+                        startActivity(intent3);
+                        return true;
                     case R.id.settings:
                         Intent intent2 = new Intent(User.this, settings.class);
                         intent2.putExtra("usertype", "user");

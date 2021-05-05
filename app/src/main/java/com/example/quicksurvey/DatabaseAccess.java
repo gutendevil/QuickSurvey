@@ -504,5 +504,24 @@ public class DatabaseAccess {
         return c;
     }
 
+    public Cursor getLiveSurveys2(String user_id, String deadline)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID,Deadline from Survey" +
+                " where User_ID='"+user_id+"' and" +
+                " Deadline>'"+deadline+"'", null);
+
+        return c;
+    }
+
+    public Cursor getDateSurveys(String deadline, String deadline2)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from Survey where Deadline>='"+deadline+"' " +
+                "and Deadline<'"+deadline2+"'", null);
+
+        return c;
+    }
+
 
 }
