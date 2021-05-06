@@ -604,4 +604,65 @@ public class DatabaseAccess {
         String status = "tocancel";
         db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+surv_id+"'");
     }
+
+    public Cursor getAllLiveSurveys(String deadline)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from Survey where Deadline>'"+deadline+"'", null);
+        return c;
+    }
+
+    public Cursor getAllPastSurveys(String deadline)
+    {
+        c = null;
+        c = db.rawQuery("select Survey_ID from Survey where Deadline<='"+deadline+"'", null);
+        return c;
+    }
+
+    public String getName(String userid)
+    {
+        c = null;
+        c = db.rawQuery("select Name from User where User_ID='"+userid+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String temp = c.getString(c.getColumnIndex("Name"));
+                return temp;
+            }
+        }
+
+        return "";
+    }
+
+    public String getApproverMail()
+    {
+        c = null;
+        c = db.rawQuery("select * from Approver", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String email = c.getString(c.getColumnIndex("Email_ID"));
+                return email;
+            }
+        }
+
+        return "";
+    }
+
+    public String getEmail(String user_id)
+    {
+        c = null;
+        c = db.rawQuery("select Email_ID from User where User_ID='"+user_id+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String email = c.getString(c.getColumnIndex("Email_ID"));
+                return email;
+            }
+        }
+        return "";
+    }
 }

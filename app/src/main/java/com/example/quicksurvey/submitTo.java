@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -104,7 +106,30 @@ public class submitTo extends AppCompatActivity {
         else if(indiv.isChecked()){
             databaseAccess.insertSurvinUser(survid, user_id.getText().toString());
         }
+
+        String pass = databaseAccess.getPassword(userid);
+        String username = databaseAccess.getName(userid);
+        String message = username + " is requesting you to approve the survey with id" +
+                Integer.toString(survid);
+        String subject = "Request for Approval";
+
+        String appmail = databaseAccess.getApproverMail();
+        String usermail = databaseAccess.getEmail(userid);
         databaseAccess.close();
+
+        try {
+            StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().
+                    permitAll().build();
+            StrictMode.setThreadPolicy(threadPolicy);
+            SendEmail.sendEmail(usermail, appmail, subject, message, pass);
+            Log.i("Mail", "Sent successfully");
+        }
+        catch (Exception e)
+        {
+            Log.i("Mail", "Exception");
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent(submitTo.this, User.class);
 
         intent.putExtra("userid", userid);

@@ -64,11 +64,17 @@ public class Admin extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
-                    case R.id.mysurveys:
-                        Intent intent1 = new Intent(Admin.this, mysurveys.class);
+                    case R.id.allsurveys:
+                        Intent intent1 = new Intent(Admin.this, allsurveys.class);
                         intent1.putExtra("usertype", "admin");
                         intent1.putExtra("userid", user_id);
                         startActivity(intent1);
+                        return true;
+                    case R.id.mysurveys:
+                        Intent intent2 = new Intent(Admin.this, mysurveys.class);
+                        intent2.putExtra("usertype", "admin");
+                        intent2.putExtra("userid", user_id);
+                        startActivity(intent2);
                         return true;
                     case R.id.atsurveys:
                         Intent intent = new Intent(Admin.this, pastSurveys.class);
@@ -83,16 +89,16 @@ public class Admin extends AppCompatActivity {
                         startActivity(intent3);
                         return true;
                     case R.id.settings:
-                        Intent intent2 = new Intent(Admin.this, settings.class);
-                        intent2.putExtra("usertype", "admin");
-                        intent2.putExtra("userid", user_id);
-                        startActivity(intent2);
+                        Intent intent5 = new Intent(Admin.this, settings.class);
+                        intent5.putExtra("usertype", "admin");
+                        intent5.putExtra("userid", user_id);
+                        startActivity(intent5);
                         return true;
                     case R.id.notifications:
-                        Intent intent3 = new Intent(Admin.this, notifications.class);
-                        intent3.putExtra("usertype", "admin");
-                        intent3.putExtra("userid", user_id);
-                        startActivity(intent3);
+                        Intent intent4 = new Intent(Admin.this, notifications.class);
+                        intent4.putExtra("usertype", "admin");
+                        intent4.putExtra("userid", user_id);
+                        startActivity(intent4);
                         return true;
                     case R.id.logout:
                         finish();
