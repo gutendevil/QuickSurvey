@@ -193,7 +193,7 @@ public class allsurveys extends AppCompatActivity {
         Cursor cursor = databaseAccess.getQueFromSurv(surv_id);
         if(cursor != null && cursor.getCount()>0)
         {
-            if(cursor.moveToFirst()){
+            while (cursor.moveToNext()){
                 int que_id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(
                         "Question_ID")));
                 String que = databaseAccess.getQue(que_id);
