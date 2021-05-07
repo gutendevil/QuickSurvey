@@ -395,21 +395,40 @@ public class DatabaseAccess {
     public Cursor getSurvfromGrp(String grp_id)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from SurvGrp where Group_ID='"+grp_id+"'", null);
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                format(Calendar.getInstance().getTime());
+
+        String status = "approve";
+        c = db.rawQuery("select SurvGrp.Survey_ID from SurvGrp, SurvApp where SurvGrp.Group_ID='"+grp_id+"' " +
+                "and SurvGrp.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' " +
+                "and SurvGrp.Survey_ID in (select Survey_ID from Survey where Deadline>'"+timestamp+"')", null);
         return c;
     }
 
     public Cursor getSurvfromDept(String dept_id)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from SurvDept where Dept_ID='"+dept_id+"'", null);
+        String status = "approve";
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                format(Calendar.getInstance().getTime());
+        c = db.rawQuery("select SurvDept.Survey_ID from SurvDept, SurvApp " +
+                "where SurvDept.Dept_ID='"+dept_id+"' " +
+                "and SurvDept.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' "+
+                "and SurvDept.Survey_ID in (select Survey_ID from Survey " +
+                "where Deadline>'"+timestamp+"')", null);
         return c;
     }
 
     public Cursor getSurvfromOrg()
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from SurvOrg", null);
+        String status = "approve";
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                format(Calendar.getInstance().getTime());
+        c = db.rawQuery("select SurvOrg.Survey_ID from SurvOrg, SurvApp " +
+                "where SurvOrg.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' "+
+                "and SurvOrg.Survey_ID in (select Survey_ID from Survey "  +
+                "where Deadline>'"+timestamp+"')", null);
         return c;
     }
 
@@ -663,6 +682,23 @@ public class DatabaseAccess {
                 return email;
             }
         }
+        return "";
+    }
+
+    public String getUserFromSurv(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select User_ID from Survey where Survey_ID='"+surv_id+"'",null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String temp = c.getString(c.getColumnIndex("User_ID"));
+                return temp;
+            }
+        }
+
         return "";
     }
 }

@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
                 String temp = username.getText().toString();
                 System.out.println(temp);
-                if(temp.equals("admin"))
+                if(temp.equals("class_bunker"))
                 {
 
                     Intent intent = new Intent(getApplicationContext(), Admin.class);
                     intent.putExtra("userid", username.getText().toString());
+                    intent.putExtra("usertype", "admin");
                     startActivity(intent);
                 }
                 else{

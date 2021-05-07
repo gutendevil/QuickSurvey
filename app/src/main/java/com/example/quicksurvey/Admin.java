@@ -47,7 +47,7 @@ public class Admin extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         Intent intent = getIntent();
-        user_id = intent.getStringExtra("Profile");
+        user_id = intent.getStringExtra("userid");
         surveyAvailable = (ListView)findViewById(R.id.surveyAvailable);
         surveygrp = (ListView)findViewById(R.id.surveygrp);
         surveydept = (ListView)findViewById(R.id.surveydept);
