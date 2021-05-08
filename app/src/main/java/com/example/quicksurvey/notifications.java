@@ -54,7 +54,7 @@ public class notifications extends AppCompatActivity {
             Toast.makeText(notifications.this, "No data to show", Toast.LENGTH_SHORT).show();
         }
 
-        databaseAccess.close();
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

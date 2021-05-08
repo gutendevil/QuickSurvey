@@ -1,32 +1,42 @@
 package com.example.quicksurvey;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -35,13 +45,139 @@ public class allsurveys extends AppCompatActivity {
 
     private ListView alllivesurveys;
     private ListView allpastsurveys;
-    private ArrayList<String> list;
+    private ArrayList<Survey> list;
     private ArrayList<String> list2;
-    private ArrayAdapter adapter;
+
     private ArrayAdapter adapter2;
+    private DatabaseAccess databaseAccess;
 
     String userid;
     String usertype;
+    private Timer timer;
+
+    SimpleDateFormat sdf = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss");
+
+    public static String printDifference(Date startDate, Date endDate) throws ParseException{
+
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : "+ endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        //long elapsedDays = different / daysInMilli;
+        //different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String temp = Long.toString(elapsedHours)+":"+Long.toString(elapsedMinutes)+":"+Long.toString(elapsedSeconds);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+        Date date = sdf2.parse(temp);
+        return sdf2.format(date);
+
+
+    }
+
+    private class SurveyListAdapter extends ArrayAdapter<Survey> {
+
+        private Context mContext;
+        int mresource;
+
+
+        public SurveyListAdapter(@NonNull Context context, int resource, ArrayList<Survey> objects) {
+            super(context, resource, objects);
+            mContext = context;
+            mresource = resource;
+
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            String name = getItem(position).getName();
+            int surveyid = getItem(position).getSurveyid();
+            String deadline = getItem(position).getDeadline();
+
+            Survey survey = new Survey(name, surveyid, deadline);
+
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            convertView = inflater.inflate(mresource, parent, false);
+
+            TextView txtname = convertView.findViewById(R.id.surveyname);
+            TextView txtid = convertView.findViewById(R.id.surveyid2);
+            TextView txtdeadine = convertView.findViewById(R.id.surveydeadline);
+
+            txtname.setText(name);
+            txtid.setText(Integer.toString(surveyid));
+            txtdeadine.setText(deadline);
+
+
+
+            return convertView;
+        }
+    }
+    private SurveyListAdapter adapter;
+
+    public class CustomTimerTask extends TimerTask{
+
+        private Handler mHandler = new Handler();
+        @Override
+        public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            for(Survey s:list)
+                            {
+                                String timeStamp = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                                Date date = new Date();
+                                try {
+                                    date = sdf.parse(timeStamp);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                int surv_id = s.getSurveyid();
+                                String deadline = databaseAccess.getDeadline(surv_id);
+                                try {
+                                    Date date2 = sdf.parse(deadline);
+                                    deadline = printDifference(date,date2);
+                                    s.setDeadline(deadline);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+    void setTimerForAdvertise() {
+        timer = new Timer();
+        TimerTask updateProfile = new CustomTimerTask();
+        timer.scheduleAtFixedRate(updateProfile, 0, 1000);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +195,49 @@ public class allsurveys extends AppCompatActivity {
         registerForContextMenu(alllivesurveys);
         registerForContextMenu(allpastsurveys);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(allsurveys.this);
+        databaseAccess = DatabaseAccess.getInstance(allsurveys.this);
         databaseAccess.open();
 
         String timeStamp = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         Cursor cursor = databaseAccess.getAllLiveSurveys(timeStamp);
 
+        Date date = new Date();
+        try {
+            date = sdf.parse(timeStamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         list = new ArrayList<>();
         if(cursor!=null && cursor.getCount()>0)
         {
             while (cursor.moveToNext())
             {
-                String temp = cursor.getString(cursor.getColumnIndex("Survey_ID"));
-                list.add(temp);
+                int surv_id = cursor.getInt(cursor.getColumnIndex("Survey_ID"));
+                String name = cursor.getString(cursor.getColumnIndex("Name"));
+                String deadline = cursor.getString(cursor.getColumnIndex("Deadline"));
+                try {
+                    Date date2 = sdf.parse(deadline);
+                    deadline = printDifference(date,date2);
+                    Survey survey = new Survey(name, surv_id, deadline);
+                    list.add(survey);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
 
         }
 
         if(list.size()==0)
         {
-            list.add("No live surveys");
+            list.add(new Survey("No live surveys", 0, ""));
+        }
+        else{
+            setTimerForAdvertise();
         }
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        adapter = new SurveyListAdapter(this, R.layout.survey_template, list);
 
         alllivesurveys.setAdapter(adapter);
 
@@ -107,7 +262,10 @@ public class allsurveys extends AppCompatActivity {
         alllivesurveys.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int surv_id = Integer.parseInt(alllivesurveys.getItemAtPosition(position).toString());
+
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
+                //Toast.makeText(allsurveys.this, Integer.toString(surv_id), Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(allsurveys.this, seeresults.class);
                 intent1.putExtra("surveyid", surv_id);
                 intent1.putExtra("userid", userid);
@@ -156,14 +314,17 @@ public class allsurveys extends AppCompatActivity {
         {
             case R.id.exportdata:
                 int pos = info.position;
-                String temp = alllivesurveys.getItemAtPosition(pos).toString();
-                int surv_id = Integer.parseInt(temp);
+                Survey survey = (Survey)adapter.getItem(pos);
+
+                int surv_id = survey.getSurveyid();
+                Toast.makeText(this, Integer.toString(surv_id), Toast.LENGTH_SHORT).show();
                 exportDB(surv_id);
                 return true;
             case R.id.cancelsurvey:
                 pos = info.position;
-                temp = alllivesurveys.getItemAtPosition(pos).toString();
-                surv_id = Integer.parseInt(temp);
+                survey = (Survey)adapter.getItem(pos);
+                surv_id = survey.getSurveyid();
+                Toast.makeText(this, Integer.toString(surv_id), Toast.LENGTH_SHORT).show();
                 DatabaseAccess databaseAccess = DatabaseAccess.getInstance(allsurveys.this);
                 databaseAccess.open();
                 databaseAccess.toCancel(surv_id);
@@ -171,7 +332,7 @@ public class allsurveys extends AppCompatActivity {
                 return true;
             case R.id.exportdata2:
                 pos = info.position;
-                temp = allpastsurveys.getItemAtPosition(pos).toString();
+                String temp = allpastsurveys.getItemAtPosition(pos).toString();
                 surv_id = Integer.parseInt(temp);
                 exportDB(surv_id);
                 return true;

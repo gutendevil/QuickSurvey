@@ -3,6 +3,7 @@ package com.example.quicksurvey;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -55,18 +56,126 @@ public class notifications2 extends AppCompatActivity {
                     permitAll().build();
             StrictMode.setThreadPolicy(threadPolicy);
             String message = "Dear "+recname+", \n Your Survey with ID-"+survid+" has been approved.";
-            System.out.println(usermail+" "+recmail+" "+pass);
+            //System.out.println(usermail+" "+recmail+" "+pass);
             try {
-                System.out.println("Mail Sent Successfully");
+                //System.out.println("Mail Sent Successfully");
 
                 SendEmail.sendEmail(usermail, recmail, subject, message, pass);
                 Log.i("Mail", "Sent successfully");
             }
             catch (Exception e)
             {
-                System.out.println("Exception");
+                //System.out.println("Exception");
                 Log.i("Mail", "Exception");
                 e.printStackTrace();
+            }
+
+            Cursor cursor = databaseAccess.ifSurvInUser(survid);
+            Cursor cursor1 = databaseAccess.ifSurvinGrp(survid);
+            Cursor cursor3 = databaseAccess.ifSurvinDept(survid);
+            boolean inOrg = databaseAccess.ifSurvinOrg(survid);
+
+            if(cursor != null && cursor.getCount()>0)
+            {
+                if(cursor.moveToFirst()) {
+                    rec_id = cursor.getString(cursor.getColumnIndex("User_ID"));
+                    recname = databaseAccess.getName(rec_id);
+                    recmail = databaseAccess.getEmail(rec_id);
+
+                    subject = "A new survey is opened for you";
+
+                    message = "Dear " + recname + ", \n A new survey Survey No-" + survid + " has been" +
+                            " opened for you ";
+
+                    try {
+                        //System.out.println("Mail Sent Successfully");
+
+                        SendEmail.sendEmail(usermail, recmail, subject, message, pass);
+                        Log.i("Mail", "Sent successfully");
+                    } catch (Exception e) {
+                        //System.out.println("Exception");
+                        Log.i("Mail", "Exception");
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else if(cursor1!=null && cursor1.getCount()>0)
+            {
+                if(cursor1.moveToFirst())
+                {
+                    String grp_id = cursor1.getString(cursor1.getColumnIndex("Group_ID"));
+                    Cursor cursor2 = databaseAccess.getUsersFromGrp(grp_id);
+
+                    while(cursor2.moveToNext())
+                    {
+                        rec_id = cursor2.getString(cursor2.getColumnIndex("User_ID"));
+                        recname = databaseAccess.getName(rec_id);
+                        recmail = databaseAccess.getEmail(rec_id);
+
+                        subject = "A new survey is opened for you";
+
+                        message = "Dear " + recname + ", \n A new survey Survey No-" + survid + " has been" +
+                                " opened for you ";
+
+                        try {
+                            //System.out.println("Mail Sent Successfully");
+
+                            SendEmail.sendEmail(usermail, recmail, subject, message, pass);
+                            Log.i("Mail", "Sent successfully");
+                        } catch (Exception e) {
+                            //System.out.println("Exception");
+                            Log.i("Mail", "Exception");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+
+            }
+            else if(cursor3!=null && cursor3.getCount()>0)
+            {
+                if(cursor3.moveToFirst())
+                {
+                    String dept_id = cursor3.getString(cursor3.getColumnIndex("Dept_ID"));
+                    recmail = databaseAccess.getDeptMail(dept_id);
+                    recname = "all IT students";
+                    subject = "A new survey is opened for you";
+
+                    message = "Dear " + recname + ", \n A new survey Survey No-" + survid + " has been" +
+                            " opened for you ";
+
+                    try {
+                        //System.out.println("Mail Sent Successfully");
+
+                        SendEmail.sendEmail(usermail, recmail, subject, message, pass);
+                        Log.i("Mail", "Sent successfully");
+                    } catch (Exception e) {
+                        //System.out.println("Exception");
+                        Log.i("Mail", "Exception");
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else if(inOrg)
+            {
+                recmail = "";
+                recname = "all students";
+                subject = "A new survey is opened for you";
+
+                message = "Dear " + recname + ", \n A new survey Survey No-" + survid + " has been" +
+                        " opened for you ";
+
+                try {
+                    //System.out.println("Mail Sent Successfully");
+
+                    SendEmail.sendEmail(usermail, recmail, subject, message, pass);
+                    Log.i("Mail", "Sent successfully");
+                } catch (Exception e) {
+                    //System.out.println("Exception");
+                    Log.i("Mail", "Exception");
+                    e.printStackTrace();
+                }
+
             }
         }
         else{

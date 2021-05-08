@@ -53,7 +53,7 @@ public class pastSurveys extends AppCompatActivity {
         else{
             Toast.makeText(this, "No Past surveys", Toast.LENGTH_SHORT).show();
         }
-        databaseAccess.close();
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

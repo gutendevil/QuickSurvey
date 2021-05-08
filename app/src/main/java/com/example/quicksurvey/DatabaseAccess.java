@@ -627,7 +627,7 @@ public class DatabaseAccess {
     public Cursor getAllLiveSurveys(String deadline)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from Survey where Deadline>'"+deadline+"'", null);
+        c = db.rawQuery("select Survey_ID, Name, Deadline from Survey where Deadline>'"+deadline+"'", null);
         return c;
     }
 
@@ -701,4 +701,100 @@ public class DatabaseAccess {
 
         return "";
     }
+
+    public Cursor ifSurvInUser(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select User_ID from SurvUser where Survey_ID='"+surv_id+"'", null);
+        return c;
+    }
+
+    public Cursor ifSurvinGrp(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select Group_ID from SurvGrp where Survey_ID='"+surv_id+"'", null);
+        return c;
+    }
+
+    public Cursor getUsersFromGrp(String grp_id)
+    {
+        c = null;
+        c = db.rawQuery("select User_ID from UserGrp where Group_ID='"+grp_id+"'", null);
+        return c;
+
+    }
+
+    public Cursor ifSurvinDept(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select Dept_ID from SurvDept where Survey_ID='"+surv_id+"'", null);
+        return c;
+
+    }
+
+    public String getDeptMail(String dept_id)
+    {
+        c= null;
+        c = db.rawQuery("select Email_ID from Department where Dept_ID='"+dept_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String mail = c.getString(c.getColumnIndex("Email_ID"));
+                return mail;
+            }
+        }
+        return "";
+    }
+
+    public boolean ifSurvinOrg(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select * from SurvOrg where Survey_ID='"+surv_id+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public String getDeadline(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select Deadline from Survey where Survey_ID='"+surv_id+"'", null);
+
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String temp = c.getString(c.getColumnIndex("Deadline"));
+                return temp;
+            }
+        }
+        return "";
+    }
+
+    public String getNameFromSurv(int surv_id)
+    {
+        c = null;
+        c = db.rawQuery("select Name from Survey where Survey_ID='"+surv_id+"'", null);
+        if(c!=null && c.getCount()>0)
+        {
+            if(c.moveToFirst())
+            {
+                String temp = c.getString(c.getColumnIndex("Name"));
+                return temp;
+            }
+        }
+
+        return "";
+    }
+
+
+
 }

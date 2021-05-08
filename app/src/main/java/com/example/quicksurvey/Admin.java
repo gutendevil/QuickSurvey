@@ -1,27 +1,37 @@
 package com.example.quicksurvey;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Admin extends AppCompatActivity {
 
@@ -31,15 +41,264 @@ public class Admin extends AppCompatActivity {
     ListView surveygrp;
     ListView surveydept;
     ListView surveyorg;
-    ArrayList<String> surveys;
-    ArrayList<String> surveys2;
-    ArrayList<String> surveys3;
-    ArrayList<String> surveys4;
-    ArrayAdapter adapter;
-    ArrayAdapter adapter2;
-    ArrayAdapter adapter3;
-    ArrayAdapter adapter4;
-    String user_id;
+    ArrayList<Survey> surveys;
+    ArrayList<Survey> surveys2;
+    ArrayList<Survey> surveys3;
+    ArrayList<Survey> surveys4;
+
+    private Timer timer1;
+    private Timer timer2;
+    private Timer timer3;
+    private Timer timer4;
+    private DatabaseAccess databaseAccess;
+
+    public static String printDifference(Date startDate, Date endDate) throws ParseException{
+
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : "+ endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        //long elapsedDays = different / daysInMilli;
+        //different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String temp = Long.toString(elapsedHours)+":"+Long.toString(elapsedMinutes)+":"+Long.toString(elapsedSeconds);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+        Date date = sdf2.parse(temp);
+        return sdf2.format(date);
+
+
+    }
+
+    public class CustomTimerTask extends TimerTask {
+
+        private Handler mHandler = new Handler();
+        @Override
+        public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            for(Survey s:surveys)
+                            {
+                                String timeStamp = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                                Date date = new Date();
+                                try {
+                                    date = sdf.parse(timeStamp);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                int surv_id = s.getSurveyid();
+                                String deadline = databaseAccess.getDeadline(surv_id);
+                                try {
+                                    Date date2 = sdf.parse(deadline);
+                                    deadline = printDifference(date,date2);
+                                    s.setDeadline(deadline);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+
+    public class CustomTimerTask2 extends TimerTask {
+
+        private Handler mHandler = new Handler();
+        @Override
+        public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            for(Survey s:surveys2)
+                            {
+                                String timeStamp = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                                Date date = new Date();
+                                try {
+                                    date = sdf.parse(timeStamp);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                int surv_id = s.getSurveyid();
+                                String deadline = databaseAccess.getDeadline(surv_id);
+                                try {
+                                    Date date2 = sdf.parse(deadline);
+                                    deadline = printDifference(date,date2);
+                                    s.setDeadline(deadline);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                adapter2.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+
+    public class CustomTimerTask3 extends TimerTask {
+
+        private Handler mHandler = new Handler();
+        @Override
+        public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            for(Survey s:surveys3)
+                            {
+                                String timeStamp = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                                Date date = new Date();
+                                try {
+                                    date = sdf.parse(timeStamp);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                int surv_id = s.getSurveyid();
+                                String deadline = databaseAccess.getDeadline(surv_id);
+                                try {
+                                    Date date2 = sdf.parse(deadline);
+                                    deadline = printDifference(date,date2);
+                                    s.setDeadline(deadline);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                adapter3.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+
+    public class CustomTimerTask4 extends TimerTask {
+
+        private Handler mHandler = new Handler();
+        @Override
+        public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            for(Survey s:surveys4)
+                            {
+                                String timeStamp = new SimpleDateFormat(
+                                        "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                                Date date = new Date();
+                                try {
+                                    date = sdf.parse(timeStamp);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                int surv_id = s.getSurveyid();
+                                String deadline = databaseAccess.getDeadline(surv_id);
+                                try {
+                                    Date date2 = sdf.parse(deadline);
+                                    deadline = printDifference(date,date2);
+                                    s.setDeadline(deadline);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                adapter4.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }
+    }
+
+    private class SurveyListAdapter extends ArrayAdapter<Survey> {
+
+        private Context mContext;
+        int mresource;
+
+
+        public SurveyListAdapter(@NonNull Context context, int resource, ArrayList<Survey> objects) {
+            super(context, resource, objects);
+            mContext = context;
+            mresource = resource;
+
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            String name = getItem(position).getName();
+            int surveyid = getItem(position).getSurveyid();
+            String deadline = getItem(position).getDeadline();
+
+            Survey survey = new Survey(name, surveyid, deadline);
+
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            convertView = inflater.inflate(mresource, parent, false);
+
+            TextView txtname = convertView.findViewById(R.id.surveyname);
+            TextView txtid = convertView.findViewById(R.id.surveyid2);
+            TextView txtdeadine = convertView.findViewById(R.id.surveydeadline);
+
+            txtname.setText(name);
+            txtid.setText(Integer.toString(surveyid));
+            txtdeadine.setText(deadline);
+
+
+
+            return convertView;
+        }
+    }
+
+    private SurveyListAdapter adapter;
+    private SurveyListAdapter adapter2;
+    private SurveyListAdapter adapter3;
+    private SurveyListAdapter adapter4;
+    private String user_id;
+
+
+    private SimpleDateFormat sdf = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,45 +379,69 @@ public class Admin extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(Admin.this);
+
+        databaseAccess = DatabaseAccess.getInstance(Admin.this);
         databaseAccess.open();
 
-
-        String timeStamp = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        Date date = new Date();
+        try {
+            date = sdf.parse(timeStamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Cursor cursor = databaseAccess.getSurvforUser(user_id, timeStamp);
-        surveys = new ArrayList<String>();
+        surveys = new ArrayList<>();
 
         if(cursor!=null && cursor.getCount()>0)
         {
             while (cursor.moveToNext())
             {
-                int surv_id = Integer.parseInt(cursor.getString(
-                        cursor.getColumnIndex("Survey_ID")));
+                int surv_id = cursor.getInt(cursor.getColumnIndex("Survey_ID"));
+                String name = databaseAccess.getNameFromSurv(surv_id);
+                String deadline = databaseAccess.getDeadline(surv_id);
+
 
                 if(databaseAccess.getRespCount(surv_id,user_id)==0)
                 {
-                    surveys.add(Integer.toString(surv_id));
+                    try {
+                        Date date2 = sdf.parse(deadline);
+                        deadline = printDifference(date,date2);
+                        Survey survey = new Survey(name, surv_id, deadline);
+                        surveys.add(survey);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
 
             if(surveys.size()==0)
             {
-                surveys.add("No survey available");
+                surveys.add(new Survey("No survey available", -1, ""));
             }
-            adapter = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys);
+            else{
+                timer1 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask();
+                timer1.scheduleAtFixedRate(updateProfile, 0, 1000);
+            }
+            adapter = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys);
 
             surveyAvailable.setAdapter(adapter);
         }
         else{
             if(surveys.size()==0)
             {
-                surveys.add("No survey available");
+                surveys.add(new Survey("No survey available", -1, ""));
             }
-            adapter = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys);
+            else{
+                timer1 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask();
+                timer1.scheduleAtFixedRate(updateProfile, 0, 1000);
+            }
+            adapter = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys);
 
             surveyAvailable.setAdapter(adapter);
         }
@@ -171,15 +454,26 @@ public class Admin extends AppCompatActivity {
             while (cursor1.moveToNext())
             {
                 String grp = cursor1.getString(cursor1.getColumnIndex("Group_ID"));
+
+
                 cursor2 = databaseAccess.getSurvfromGrp(grp);
                 if(cursor2!=null && cursor2.getCount()>0)
                 {
                     int surv_id = Integer.parseInt(cursor2.getString(
                             cursor2.getColumnIndex("Survey_ID")));
+                    String name = databaseAccess.getNameFromSurv(surv_id);
+                    String deadline = databaseAccess.getDeadline(surv_id);
 
                     if(databaseAccess.getRespCount(surv_id,user_id)==0)
                     {
-                        surveys2.add(Integer.toString(surv_id));
+                        try {
+                            Date date2 = sdf.parse(deadline);
+                            deadline = printDifference(date,date2);
+                            Survey survey = new Survey(name, surv_id, deadline);
+                            surveys2.add(survey);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
@@ -187,20 +481,30 @@ public class Admin extends AppCompatActivity {
 
             if(surveys2.size()==0)
             {
-                surveys2.add("No survey available");
+                surveys2.add(new Survey("No survey available", -1, ""));
             }
-            adapter2 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys2);
+            else{
+                timer2 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask2();
+                timer2.scheduleAtFixedRate(updateProfile, 0, 1000);
+            }
+            adapter2 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys2);
 
             surveygrp.setAdapter(adapter2);
         }
         else{
             if(surveys2.size()==0)
             {
-                surveys2.add("No survey available");
+                surveys2.add(new Survey("No survey available", -1, ""));
             }
-            adapter2 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys2);
+            else{
+                timer2 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask2();
+                timer2.scheduleAtFixedRate(updateProfile, 0, 1000);
+            }
+            adapter2 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys2);
 
             surveygrp.setAdapter(adapter2);
         }
@@ -215,30 +519,49 @@ public class Admin extends AppCompatActivity {
             {
                 int surv_id = Integer.parseInt(cursor2.getString(
                         cursor2.getColumnIndex("Survey_ID")));
+                String name = databaseAccess.getNameFromSurv(surv_id);
+                String deadline = databaseAccess.getDeadline(surv_id);
 
                 if(databaseAccess.getRespCount(surv_id,user_id)==0)
                 {
-                    surveys3.add(Integer.toString(surv_id));
+                    try {
+                        Date date2 = sdf.parse(deadline);
+                        deadline = printDifference(date,date2);
+                        Survey survey = new Survey(name, surv_id, deadline);
+                        surveys3.add(survey);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             if(surveys3.size()==0)
             {
-                surveys3.add("No survey available");
+                surveys3.add(new Survey("No survey available", -1, ""));
+            }
+            else{
+                timer3 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask3();
+                timer3.scheduleAtFixedRate(updateProfile, 0, 1000);
             }
 
-            adapter3 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys3);
+            adapter3 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys3);
             surveydept.setAdapter(adapter3);
         }
         else{
             if(surveys3.size()==0)
             {
-                surveys3.add("No survey available");
+                surveys3.add(new Survey("No survey available", -1, ""));
+            }
+            else{
+                timer3 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask3();
+                timer3.scheduleAtFixedRate(updateProfile, 0, 1000);
             }
 
-            adapter3 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys3);
+            adapter3 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys3);
             surveydept.setAdapter(adapter3);
         }
 
@@ -251,47 +574,64 @@ public class Admin extends AppCompatActivity {
 
                 int surv_id = Integer.parseInt(cursor3.getString(
                         cursor3.getColumnIndex("Survey_ID")));
+                String name = databaseAccess.getNameFromSurv(surv_id);
+                String deadline = databaseAccess.getDeadline(surv_id);
 
                 if(databaseAccess.getRespCount(surv_id,user_id)==0)
                 {
-                    surveys4.add(Integer.toString(surv_id));
+                    try {
+                        Date date2 = sdf.parse(deadline);
+                        deadline = printDifference(date,date2);
+                        Survey survey = new Survey(name, surv_id, deadline);
+                        surveys4.add(survey);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             if(surveys4.size()==0)
             {
-                surveys4.add("No survey available");
+                surveys4.add(new Survey("No survey available", -1, ""));
+            }
+            else{
+                timer4 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask4();
+                timer4.scheduleAtFixedRate(updateProfile, 0, 1000);
             }
 
-            adapter4 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys4);
+            adapter4 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys4);
 
             surveyorg.setAdapter(adapter4);
         }
         else {
             if(surveys4.size()==0)
             {
-                surveys4.add("No survey available");
+                surveys4.add(new Survey("No survey available", -1, ""));
+            }
+            else{
+                timer4 = new Timer();
+                TimerTask updateProfile = new CustomTimerTask4();
+                timer4.scheduleAtFixedRate(updateProfile, 0, 1000);
             }
 
-            adapter4 = new ArrayAdapter(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, surveys4);
+            adapter4 = new SurveyListAdapter(getApplicationContext(),
+                    R.layout.survey_template, surveys4);
 
             surveyorg.setAdapter(adapter4);
         }
 
 
-        databaseAccess.close();
-
-
         surveyAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int text = Integer.parseInt(surveyAvailable.getItemAtPosition(position).toString());
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
                 Intent intent = new Intent(Admin.this, attemptSurvey.class);
                 intent.putExtra("usertype", "admin");
                 intent.putExtra("userid", user_id);
-                intent.putExtra("surveyid", text);
+                intent.putExtra("surveyid", surv_id);
                 startActivity(intent);
 
             }
@@ -300,11 +640,12 @@ public class Admin extends AppCompatActivity {
         surveygrp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int text = Integer.parseInt(surveygrp.getItemAtPosition(position).toString());
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
                 Intent intent = new Intent(Admin.this, attemptSurvey.class);
-                intent.putExtra("usertype", "user");
+                intent.putExtra("usertype", "admin");
                 intent.putExtra("userid", user_id);
-                intent.putExtra("surveyid", text);
+                intent.putExtra("surveyid", surv_id);
                 startActivity(intent);
             }
         });
@@ -312,11 +653,12 @@ public class Admin extends AppCompatActivity {
         surveydept.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int text = Integer.parseInt(surveydept.getItemAtPosition(position).toString());
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
                 Intent intent = new Intent(Admin.this, attemptSurvey.class);
-                intent.putExtra("usertype", "user");
+                intent.putExtra("usertype", "admin");
                 intent.putExtra("userid", user_id);
-                intent.putExtra("surveyid", text);
+                intent.putExtra("surveyid", surv_id);
                 startActivity(intent);
             }
         });
@@ -324,11 +666,12 @@ public class Admin extends AppCompatActivity {
         surveyorg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int text = Integer.parseInt(surveyorg.getItemAtPosition(position).toString());
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
                 Intent intent = new Intent(Admin.this, attemptSurvey.class);
                 intent.putExtra("usertype", "admin");
                 intent.putExtra("userid", user_id);
-                intent.putExtra("surveyid", text);
+                intent.putExtra("surveyid", surv_id);
                 startActivity(intent);
             }
         });
@@ -357,7 +700,7 @@ public class Admin extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(Admin.this);
         databaseAccess.open();
         int survid = databaseAccess.getMaxSurv();
-        databaseAccess.close();
+
         intent.putExtra("surveyid", Integer.toString(survid));
         startActivity(intent);
     }

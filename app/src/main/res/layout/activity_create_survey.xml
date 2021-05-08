@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/question"
-        android:layout_width="390dp"
-        android:layout_height="96dp"
+        android:layout_width="389dp"
+        android:layout_height="136dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -19,64 +19,7 @@
         android:layout_marginTop="17dp"
         android:ems="10"
         android:hint="Enter Question"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/option1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="148dp"
-        android:ems="10"
-        android:hint="Option A"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/option2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="211dp"
-        android:ems="10"
-        android:hint="Option B"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/option3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginBottom="286dp"
-        android:ems="10"
-        android:hint="Option C"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/option4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginBottom="221dp"
-        android:ems="10"
-        android:hint="Option D"
-        android:inputType="textPersonName" />
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/button2"
@@ -86,6 +29,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="43dp"
         android:layout_marginLeft="43dp"
         android:layout_marginBottom="76dp"
@@ -103,11 +47,60 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="69dp"
-        android:layout_marginLeft="69dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button2"
         android:onClick="submit"
         android:text="Submit"
         android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="261dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="174dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Option A"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Option B"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Option C"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Option D"
+            android:inputType="textPersonName" />
+    </LinearLayout>
 </RelativeLayout>
