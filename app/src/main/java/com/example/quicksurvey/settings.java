@@ -46,48 +46,70 @@ public class settings extends AppCompatActivity {
     {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(settings.this);
         databaseAccess.open();
-        databaseAccess.setemail(email.getText().toString(), userid);
-        if(pass1.getText().toString().length() != 0 && pass1.getText().toString() != null)
-        {
-            if(pass2.getText().toString().length() != 0 && pass2.getText().toString() != null)
-            {
-                String temppass = databaseAccess.getPassword(userid);
-                if(pass1.getText().toString().equals(temppass))
-                {
-                    databaseAccess.setPassword(pass2.getText().toString(), userid);
-                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                    if(usertype.equals("user"))
-                    {
-                        Intent intent = new Intent(settings.this, User.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+        if(view.getId() == R.id.button7) {
+            databaseAccess.setemail(email.getText().toString(), userid);
+            if (pass1.getText().toString().length() != 0 && pass1.getText().toString() != null) {
+                if (pass2.getText().toString().length() != 0 && pass2.getText().toString() != null) {
+                    String temppass = databaseAccess.getPassword(userid);
+                    if (pass1.getText().toString().equals(temppass)) {
+                        databaseAccess.setPassword(pass2.getText().toString(), userid);
+                        Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                        if (usertype.equals("user")) {
+                            Intent intent = new Intent(settings.this, User.class);
+                            intent.putExtra("userid", userid);
+                            intent.putExtra("usertype", usertype);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        } else {
+                            Intent intent = new Intent(settings.this, Admin.class);
+                            intent.putExtra("userid", userid);
+                            intent.putExtra("usertype", usertype);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        }
+                    } else {
+                        Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Intent intent = new Intent(settings.this, Admin.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
+                } else {
+                    Toast.makeText(this, "Enter New Password", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                if (usertype.equals("user")) {
+                    Intent intent = new Intent(settings.this, User.class);
+                    intent.putExtra("userid", userid);
+                    intent.putExtra("usertype", usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                } else {
+                    Intent intent = new Intent(settings.this, Admin.class);
+                    intent.putExtra("userid", userid);
+                    intent.putExtra("usertype", usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
                 }
-            }
-            else{
-                Toast.makeText(this, "Enter New Password", Toast.LENGTH_SHORT).show();
+
             }
         }
         else{
-            Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-            if(usertype.equals("user"))
-            {
+            if (usertype.equals("user")) {
                 Intent intent = new Intent(settings.this, User.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", userid);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-            }
-            else{
+
+            } else {
                 Intent intent = new Intent(settings.this, Admin.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", userid);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         }
 

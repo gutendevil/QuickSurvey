@@ -19,6 +19,7 @@
         android:layout_marginTop="17dp"
         android:ems="10"
         android:hint="Enter Question"
+        android:background="#FFFFFF"
         android:inputType="textMultiLine" />
 
     <Button
@@ -48,7 +49,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="69dp"
+
         android:layout_marginBottom="16dp"
         android:background="@drawable/button2"
         android:onClick="submit"
@@ -74,6 +75,7 @@
 
             android:ems="10"
             android:hint="Option A"
+
             android:inputType="textPersonName" />
 
         <EditText

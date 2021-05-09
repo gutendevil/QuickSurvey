@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -253,7 +254,7 @@ public class User extends AppCompatActivity {
             txtdeadine.setText(deadline);
 
 
-
+            convertView.setBackgroundResource(R.drawable.rounded_edges2);
             return convertView;
         }
     }
@@ -310,11 +311,15 @@ public class User extends AppCompatActivity {
 
         Intent intent = getIntent();
         user_id = intent.getStringExtra("userid");
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         Toast.makeText(this, user_id, Toast.LENGTH_SHORT).show();
         surveyAvailable = (ListView)findViewById(R.id.surveyAvailable);
         surveygrp = (ListView)findViewById(R.id.surveygrp);
         surveydept = (ListView)findViewById(R.id.surveydept);
         surveyorg = (ListView)findViewById(R.id.surveyorg);
+
+
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

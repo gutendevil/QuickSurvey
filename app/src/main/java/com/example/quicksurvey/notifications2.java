@@ -229,6 +229,7 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -246,7 +247,7 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

@@ -17,9 +17,11 @@
         <activity android:name=".allsurveys"></activity>
         <activity android:name=".todaysurveys" />
         <activity android:name=".calendar" />
-        <activity android:name=".seeresults" />
+        <activity android:name=".seeresults"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".mysurveys" />
-        <activity android:name=".pastresponse" />
+        <activity android:name=".pastresponse"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".pastSurveys" />
         <activity android:name=".attemptSurvey" />
         <activity android:name=".notifications2" />
