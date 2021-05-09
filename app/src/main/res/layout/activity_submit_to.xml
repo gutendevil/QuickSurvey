@@ -5,13 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".submitTo">
+    tools:context=".submitTo"
+    android:background="@drawable/main_header_selector">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_transparent"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:hint="Survey Name">
 
@@ -20,9 +30,11 @@
             android:layout_width="match_parent"
 
             android:layout_height="50dp"
-            android:background="#F7F7F7"
+
             android:clickable="false"
             android:ems="10"
+            android:background="@drawable/rounded_edges2"
+
 
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -40,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="#F7F7F7"
+            android:background="@drawable/rounded_edges2"
+
 
             android:ems="10"
             android:inputType="datetime" />
@@ -55,7 +68,7 @@
         android:layout_marginLeft="23dp"
         android:layout_marginTop="20dp"
         android:text="To"
-        android:textColor="#3F51B5"
+        android:textColor="#FFEB3B"
         android:textSize="18sp" />
 
     <RadioGroup
@@ -71,12 +84,16 @@
             android:id="@+id/org"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
-            android:text="Organization" />
+            android:text="Organization"
+            android:buttonTint="#FFFFFF"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/dep"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
+            android:buttonTint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:text="Department" />
 
     </RadioGroup>
@@ -91,13 +108,16 @@
 
         <RadioButton
             android:id="@+id/grp"
-
+            android:buttonTint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:text="Group" />
 
         <RadioButton
             android:id="@+id/indiv"
+            android:buttonTint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:text="Individual" />
@@ -109,11 +129,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_edges2"
         android:hint="Department ID">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/depname"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
 
             android:background="#F7F7F7"
             android:clickable="false"
@@ -124,13 +146,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_edges2"
         android:hint="Group ID">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/grpno"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="#F7F7F7"
             android:clickable="false"
             android:editable="false"
@@ -142,24 +165,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_edges2"
         android:hint="User ID">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user_id"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="#F7F7F7"
             android:clickable="false"
             android:ems="10"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/finsbmt"
         android:layout_width="348dp"
         android:layout_height="60dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/button2"
         android:onClick="goToHome"

@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -46,9 +49,9 @@ public class allsurveys extends AppCompatActivity {
     private ListView alllivesurveys;
     private ListView allpastsurveys;
     private ArrayList<Survey> list;
-    private ArrayList<String> list2;
+    private ArrayList<Survey> list2;
 
-    private ArrayAdapter adapter2;
+
     private DatabaseAccess databaseAccess;
 
     String userid;
@@ -63,9 +66,7 @@ public class allsurveys extends AppCompatActivity {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
-        System.out.println("different : " + different);
+
 
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
@@ -127,11 +128,12 @@ public class allsurveys extends AppCompatActivity {
             txtdeadine.setText(deadline);
 
 
-
+            convertView.setBackgroundResource(R.drawable.rounded_edges2);
             return convertView;
         }
     }
     private SurveyListAdapter adapter;
+    private SurveyListAdapter adapter2;
 
     public class CustomTimerTask extends TimerTask{
 
@@ -249,13 +251,20 @@ public class allsurveys extends AppCompatActivity {
         {
             while(cursor1.moveToNext())
             {
-                String temp = cursor1.getString(cursor1.getColumnIndex("Survey_ID"));
-                list2.add(temp);
+                int surv_id = cursor1.getInt(cursor1.getColumnIndex("Survey_ID"));
+                String name = cursor1.getString(cursor1.getColumnIndex("Name"));
+                Survey survey = new Survey(name, surv_id, "");
+                list2.add(survey);
             }
 
         }
 
-        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list2);
+        if(list2.size()==0)
+        {
+            list2.add(new Survey("No surveys created", 0, ""));
+        }
+
+        adapter2 = new SurveyListAdapter(this, R.layout.survey_template, list2);
 
         allpastsurveys.setAdapter(adapter2);
 
@@ -277,7 +286,8 @@ public class allsurveys extends AppCompatActivity {
         allpastsurveys.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int surv_id = Integer.parseInt(allpastsurveys.getItemAtPosition(position).toString());
+                int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                        getText().toString());
                 Intent intent1 = new Intent(allsurveys.this, seeresults.class);
                 intent1.putExtra("surveyid", surv_id);
                 intent1.putExtra("userid", userid);
@@ -327,13 +337,23 @@ public class allsurveys extends AppCompatActivity {
                 Toast.makeText(this, Integer.toString(surv_id), Toast.LENGTH_SHORT).show();
                 DatabaseAccess databaseAccess = DatabaseAccess.getInstance(allsurveys.this);
                 databaseAccess.open();
-                databaseAccess.toCancel(surv_id);
-                databaseAccess.close();
+                if(usertype.equals("admin"))
+                {
+                    databaseAccess.getCancel(surv_id);
+                }
+                else if(databaseAccess.approval(surv_id).equals("pending"))
+                {
+                    databaseAccess.getCancel(surv_id);
+                }
+                else {
+                    databaseAccess.toCancel(surv_id);
+                }
+
                 return true;
             case R.id.exportdata2:
                 pos = info.position;
-                String temp = allpastsurveys.getItemAtPosition(pos).toString();
-                surv_id = Integer.parseInt(temp);
+                survey = (Survey)adapter.getItem(pos);
+                surv_id = survey.getSurveyid();
                 exportDB(surv_id);
                 return true;
             default:
@@ -428,7 +448,7 @@ public class allsurveys extends AppCompatActivity {
             }
             csvWrite.close();
             curCSV.close();
-            databaseAccess.close();
+
         }
         catch(Exception sqlEx)
         {

@@ -24,7 +24,7 @@ public class notifications2 extends AppCompatActivity {
         setContentView(R.layout.activity_notifications2);
 
         Intent intent = getIntent();
-        survid = Integer.parseInt(intent.getStringExtra("surveyid"));
+        survid = intent.getIntExtra("surveyid",0);
         userid = intent.getStringExtra("userid");
         usertype = intent.getStringExtra("usertype");
         approval = intent.getStringExtra("approval");
@@ -229,7 +229,7 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
         finish();
     }
@@ -247,7 +247,7 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
         finish();
     }

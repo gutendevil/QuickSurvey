@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/main_header_selector"
     tools:context=".calendar">
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="449dp"
-        android:layout_alignParentStart="true"
+
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
+
         android:layout_marginTop="154dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="@color/design_default_color_on_primary"
+        app:compactCalendarBackgroundColor="@android:color/transparent"
         app:compactCalendarCurrentDayBackgroundColor="#A1FFC107"
         app:compactCalendarCurrentSelectedDayBackgroundColor="#FFBA00"
         app:compactCalendarMultiEventIndicatorColor="#FFE600"
         app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextColor="#000000"
+        app:compactCalendarTextColor="#FFFFFF"
+        app:compactCalendarCurrentSelectedDayTextColor="@color/colorPrimaryDark"
         app:compactCalendarTextSize="12sp" />
 
 </RelativeLayout>

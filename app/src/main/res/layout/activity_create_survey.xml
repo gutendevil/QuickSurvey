@@ -4,23 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".createSurvey">
+    tools:context=".createSurvey"
+    android:background="@drawable/main_header_selector">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_transparent"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light" />
 
     <EditText
         android:id="@+id/question"
         android:layout_width="389dp"
         android:layout_height="136dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/toolbar"
+
         android:layout_centerHorizontal="true"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="17dp"
+        android:background="@drawable/rounded_edges2"
         android:ems="10"
         android:hint="Enter Question"
-        android:background="#FFFFFF"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        />
 
     <Button
         android:id="@+id/button2"
@@ -37,7 +48,7 @@
         android:background="@drawable/button"
         android:onClick="addQuestion"
         android:text="Add another question"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <Button
@@ -45,8 +56,7 @@
         style="submit"
         android:layout_width="228dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
 
@@ -57,50 +67,59 @@
         android:textColor="#FFFFFF" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="261dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="174dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/question"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:divider="@drawable/divider"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:showDividers="middle">
 
         <EditText
             android:id="@+id/option1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
+            android:background="@drawable/rounded_edges2"
             android:ems="10"
-            android:hint="Option A"
 
+            android:hint="Option A"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/option2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
+            android:background="@drawable/rounded_edges2"
             android:ems="10"
+
             android:hint="Option B"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/option3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
+            android:background="@drawable/rounded_edges2"
             android:ems="10"
+
             android:hint="Option C"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/option4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
+            android:background="@drawable/rounded_edges2"
             android:ems="10"
             android:hint="Option D"
             android:inputType="textPersonName" />

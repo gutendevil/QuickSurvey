@@ -76,7 +76,7 @@ public class seeresults extends AppCompatActivity {
                 int opt_id = databaseAccess.getoptid(que_id);
 
                 options = databaseAccess.getOptions(opt_id);
-
+                System.out.println(opt_id);
                 opt1.setText(options.get(0));
                 opt2.setText(options.get(1));
                 opt3.setText(options.get(2));

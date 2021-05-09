@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -29,6 +32,8 @@ public class calendar extends AppCompatActivity {
             Locale.getDefault());
     private SimpleDateFormat sdf = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class calendar extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
+
 
 
         calendarView = (CompactCalendarView) findViewById(R.id.calendarView);
@@ -50,6 +56,14 @@ public class calendar extends AppCompatActivity {
 
         String today = dateFormatMonth.format(Calendar.getInstance().getTime());
         actionBar.setTitle(today);
+        Window window = this.getWindow();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(calendar.this);
         databaseAccess.open();

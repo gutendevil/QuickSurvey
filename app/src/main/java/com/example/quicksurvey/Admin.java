@@ -57,9 +57,7 @@ public class Admin extends AppCompatActivity {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
-        System.out.println("different : " + different);
+
 
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
@@ -287,7 +285,7 @@ public class Admin extends AppCompatActivity {
             txtdeadine.setText(deadline);
 
 
-
+            convertView.setBackgroundResource(R.drawable.rounded_edges2);
             return convertView;
         }
     }

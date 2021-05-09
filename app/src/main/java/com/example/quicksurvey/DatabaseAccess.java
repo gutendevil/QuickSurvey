@@ -180,30 +180,33 @@ public class DatabaseAccess {
         db.execSQL("update SurvApp set Approval='"+status+"' where Survey_ID='"+survid+"'");
 
         db.execSQL("DELETE FROM Options WHERE Option_ID IN" +
-                "(SELECT Option_ID FROM Questions WHERE Question_ID IN" +
-                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID IN" +
-                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"')));");
+                "(SELECT Option_ID FROM QueOpt WHERE Question_ID IN" +
+                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID='"+survid+"'));");
+
+        db.execSQL("delete from QueOpt where Question_ID in " +
+                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID='"+survid+"')");
 
         db.execSQL("DELETE FROM Questions WHERE Question_ID IN " +
-                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID IN" +
-                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"'));");
+                "(SELECT Question_ID FROM SurvQue WHERE Survey_ID='"+survid+"');");
 
         db.execSQL("DELETE FROM SurvQue WHERE Survey_ID IN" +
-                "(SELECT Survey_ID FROM SurvApp WHERE Approval = '"+status+"');");
+                "(SELECT Survey_ID FROM SurvApp WHERE Survey_ID='"+survid+"');");
 
         db.execSQL("DELETE FROM SurvOrg where Survey_ID in (SELECT\n" +
-                "Survey_ID from SurvApp where Approval='"+status+"');");
+                "Survey_ID from SurvApp WHERE Survey_ID='"+survid+"');");
 
         db.execSQL("DELETE FROM SurvUser where Survey_ID in (SELECT\n" +
-                "Survey_ID from SurvApp where Approval='"+status+"');");
+                "Survey_ID from SurvApp where Survey_ID='"+survid+"');");
 
         db.execSQL("DELETE FROM SurvDept where Survey_ID in (SELECT\n" +
-                "Survey_ID from SurvApp where Approval='"+status+"');");
+                "Survey_ID from SurvApp where Survey_ID='"+survid+"');");
 
         db.execSQL("DELETE FROM SurvGrp where Survey_ID in (SELECT\n" +
-                "Survey_ID from SurvApp where Approval='"+status+"');");
+                "Survey_ID from SurvApp where Survey_ID='"+survid+"');");
 
-        db.execSQL("DELETE FROM SurvApp WHERE Approval = '"+status+"';");
+        db.execSQL("DELETE FROM Survey WHERE Survey_ID in (select Survey_ID" +
+                " from Survey where Survey_ID='"+survid+"');");
+        db.execSQL("DELETE FROM SurvApp WHERE Survey_ID='"+survid+"'");
 
     }
 
@@ -278,14 +281,15 @@ public class DatabaseAccess {
         c = db.rawQuery("select Option1, Option2, Option3, Option4 from Options where Option_ID='"+opt_id+"'",null);
         ArrayList<String>options;
         options = new ArrayList<>();
-        if(c.moveToFirst())
-        {
-            options.add(0, c.getString(c.getColumnIndex("Option1")));
-            options.add(1, c.getString(c.getColumnIndex("Option2")));
-            options.add(2, c.getString(c.getColumnIndex("Option3")));
-            options.add(3, c.getString(c.getColumnIndex("Option4")));
+        if(c!=null && c.getCount()>0) {
+            if (c.moveToFirst()) {
+                options.add(0, c.getString(c.getColumnIndex("Option1")));
+                options.add(1, c.getString(c.getColumnIndex("Option2")));
+                options.add(2, c.getString(c.getColumnIndex("Option3")));
+                options.add(3, c.getString(c.getColumnIndex("Option4")));
 
-            return options;
+                return options;
+            }
         }
 
         return null;
@@ -529,7 +533,7 @@ public class DatabaseAccess {
     public Cursor getLiveSurveys(String user_id, String deadline)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from Survey where User_ID='"+user_id+"' and" +
+        c = db.rawQuery("select Survey_ID, Name, Deadline from Survey where User_ID='"+user_id+"' and" +
                 " Deadline>'"+deadline+"'", null);
 
         return c;
@@ -538,7 +542,7 @@ public class DatabaseAccess {
     public Cursor getPastSurveys(String user_id, String deadline)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from Survey where User_ID='"+user_id+"' and" +
+        c = db.rawQuery("select Survey_ID, Name from Survey where User_ID='"+user_id+"' and" +
                 " Deadline<='"+deadline+"'", null);
 
         return c;
@@ -547,7 +551,7 @@ public class DatabaseAccess {
     public Cursor getLiveSurveys2(String user_id, String deadline)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID,Deadline from Survey" +
+        c = db.rawQuery("select Survey_ID,Deadline,Name from Survey" +
                 " where User_ID='"+user_id+"' and" +
                 " Deadline>'"+deadline+"'", null);
 
@@ -557,8 +561,11 @@ public class DatabaseAccess {
     public Cursor getDateSurveys(String deadline, String deadline2)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from Survey where Deadline>='"+deadline+"' " +
-                "and Deadline<'"+deadline2+"'", null);
+        String status = "approve";
+        String status2 = "tocancel";
+        c = db.rawQuery("select Survey_ID, Name, Deadline from Survey where Deadline>='"+deadline+"' " +
+                "and Deadline<'"+deadline2+"' and Survey_ID in (select Survey_ID" +
+                " from SurvApp where (Approval='"+status+"' or Approval='"+status2+"'))", null);
 
         return c;
     }
@@ -634,7 +641,7 @@ public class DatabaseAccess {
     public Cursor getAllPastSurveys(String deadline)
     {
         c = null;
-        c = db.rawQuery("select Survey_ID from Survey where Deadline<='"+deadline+"'", null);
+        c = db.rawQuery("select Survey_ID, Name from Survey where Deadline<='"+deadline+"'", null);
         return c;
     }
 

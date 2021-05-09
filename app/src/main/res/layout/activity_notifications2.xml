@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notifications2">
+    tools:context=".notifications2"
+    android:background="@drawable/main_header_selector">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_transparent"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light" />
 
     <TextView
         android:id="@+id/request"
@@ -14,6 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
         android:hint="Would you like to approve the survey?"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -28,17 +41,23 @@
             android:id="@+id/approve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="1dp"
             android:layout_weight="1"
+            android:background="@drawable/button"
             android:onClick="approvesurvey"
-            android:text="Yes" />
+            android:text="Yes"
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="1dp"
             android:layout_weight="1"
+            android:background="@drawable/button"
             android:onClick="cancelsurvey"
-            android:text="No" />
+            android:text="No"
+            android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
 

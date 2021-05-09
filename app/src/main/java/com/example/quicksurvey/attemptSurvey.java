@@ -86,13 +86,17 @@ public class attemptSurvey extends AppCompatActivity {
             if(usertype.equals("user"))
             {
                 Intent intent = new Intent(attemptSurvey.this, User.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid",userid);
+                intent.putExtra("usertype",usertype);
                 startActivity(intent);
+                finish();
             }
             else{
                 Intent intent = new Intent(attemptSurvey.this, Admin.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid",userid);
+                intent.putExtra("usertype",usertype);
                 startActivity(intent);
+                finish();
             }
         }
         else{
@@ -144,13 +148,16 @@ public class attemptSurvey extends AppCompatActivity {
                 if(usertype.equals("user"))
                 {
                     Intent intent = new Intent(attemptSurvey.this, User.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("userid",userid);
+                    intent.putExtra("usertype",usertype);
                     startActivity(intent);
                 }
                 else{
                     Intent intent = new Intent(attemptSurvey.this, Admin.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("userid",userid);
+                    intent.putExtra("usertype",usertype);
                     startActivity(intent);
+                    finish();
                 }
 
             }

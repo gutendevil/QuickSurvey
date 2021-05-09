@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,14 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".allsurveys"></activity>
+        <activity android:name=".dashboard"></activity>
+        <activity android:name=".allsurveys" />
         <activity android:name=".todaysurveys" />
         <activity android:name=".calendar" />
-        <activity android:name=".seeresults"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".seeresults"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".mysurveys" />
-        <activity android:name=".pastresponse"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".pastresponse"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".pastSurveys" />
         <activity android:name=".attemptSurvey" />
         <activity android:name=".notifications2" />

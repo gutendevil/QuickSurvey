@@ -37,7 +37,7 @@ public class settings extends AppCompatActivity {
 
         username.setText(databaseAccess.findUser(userid));
         email.setText(databaseAccess.findEmail(userid));
-        databaseAccess.close();
+
 
 
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
+    android:background="@drawable/main_header_selector"
     tools:openDrawer="start"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,17 +14,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/background_transparent"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light" />
+
 
 
         <LinearLayout
@@ -39,60 +41,94 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
                 android:text="Individual"
                 android:textSize="18sp" />
 
+
+
             <ListView
                 android:id="@+id/surveyAvailable"
+
+                android:dividerHeight="8dp"
+                android:divider="@drawable/background_transparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
 
             </ListView>
 
+
+
             <TextView
+                android:layout_marginTop="10dp"
                 android:id="@+id/textView2"
                 android:layout_width="252dp"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
                 android:text="Group"
                 android:textSize="18sp" />
 
+
             <ListView
                 android:id="@+id/surveygrp"
+
+                android:dividerHeight="8dp"
+                android:divider="@drawable/background_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
             </ListView>
 
+
             <TextView
                 android:id="@+id/textview3"
+                android:layout_marginTop="10dp"
                 android:layout_width="111dp"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
                 android:text="Department"
                 android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/surveydept"
+
                 android:layout_width="match_parent"
+                android:dividerHeight="8dp"
+
+                android:divider="@drawable/background_transparent"
                 android:layout_height="wrap_content">
+
 
 
             </ListView>
 
+
             <TextView
                 android:id="@+id/textView12"
+                android:layout_marginTop="10dp"
                 android:layout_width="161dp"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
                 android:text="Organization"
                 android:textSize="18sp" />
 
+
             <ListView
                 android:id="@+id/surveyorg"
+
+                android:dividerHeight="8dp"
+                android:divider="@drawable/background_transparent"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content" />
 
+
+
         </LinearLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button"
@@ -104,7 +140,7 @@
             android:onClick="addSurvey"
 
 
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -116,6 +152,7 @@
 
 
     </RelativeLayout>
+
 
 
     <com.google.android.material.navigation.NavigationView
