@@ -1,77 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".submitTo">
 
-    <EditText
-        android:id="@+id/surveyname"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:clickable="false"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:hint="Survey Name">
 
-    <EditText
-        android:id="@+id/grpno"
-        android:layout_width="208dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/surveyname"
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp"
+            android:background="#F7F7F7"
+            android:clickable="false"
+            android:ems="10"
+
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="53dp"
-        android:layout_marginTop="366dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_toRightOf="@id/textView17"
-        android:clickable="false"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="Deadline"
+        app:startIconDrawable="@drawable/ic_timer_black_24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#F7F7F7"
+
+            android:ems="10"
+            android:inputType="datetime" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Name"
-        android:textColor="#000000"
-        android:textSize="24sp" />
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="20dp"
+        android:text="To"
+        android:textColor="#3F51B5"
+        android:textSize="18sp" />
 
     <RadioGroup
         android:id="@+id/rdgrp1"
-        android:layout_width="385dp"
+        android:layout_width="365dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="217dp"
-        android:layout_marginEnd="13dp"
+
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/org"
-            android:layout_width="196dp"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:text="Organization" />
 
         <RadioButton
             android:id="@+id/dep"
-            android:layout_width="match_parent"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:text="Department" />
 
@@ -79,19 +83,16 @@
 
     <RadioGroup
         android:id="@+id/rdgrp2"
-        android:layout_width="387dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="253dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="16dp"
+
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/grp"
 
-            android:layout_width="198dp"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:text="Group" />
 
@@ -102,31 +103,63 @@
             android:text="Individual" />
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/depname"
-        android:layout_width="256dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="126dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
-        android:layout_toRightOf="@id/textView16"
-        android:clickable="false"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:hint="Department ID">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/depname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
 
+            android:background="#F7F7F7"
+            android:clickable="false"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginRight="10dp"
+        android:hint="Group ID">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/grpno"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F7F7F7"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginRight="10dp"
+        android:hint="User ID">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F7F7F7"
+            android:clickable="false"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/finsbmt"
         android:layout_width="348dp"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/button2"
         android:onClick="goToHome"
@@ -135,102 +168,4 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="104dp"
-        android:text="Deadline"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/deadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="98dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginRight="37dp"
-        android:ems="10"
-        android:hint="YYYY-MM-DD HH:MM:SS"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="172dp"
-        android:text="To"
-        android:textColor="#020202"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginBottom="258dp"
-        android:text="Dept. ID"
-        android:textColor="#0C0B0B"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="200dp"
-        android:text="Group_ID"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginLeft="37dp"
-        android:layout_marginBottom="126dp"
-        android:text="User_ID"
-        android:textColor="#FD000000"
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/user_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginBottom="115dp"
-        android:layout_toRightOf="@id/textView18"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-</RelativeLayout>
+</LinearLayout>

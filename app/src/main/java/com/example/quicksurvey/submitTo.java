@@ -55,12 +55,43 @@ public class submitTo extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
                 // This puts the value (true/false) into the variable
+
+
                 boolean isChecked = checkedRadioButton.isChecked();
                 // If the radiobutton that has changed in check state is now checked...
                 if (isChecked)
                 {
                     grp.setChecked(false);
                     indiv.setChecked(false);
+
+                    if(checkedId == R.id.org)
+                    {
+                        depname.setFocusable(false);
+                        depname.setFocusableInTouchMode(false);
+                        depname.setClickable(false);
+
+                        grpno.setFocusable(false);
+                        grpno.setFocusableInTouchMode(false);
+                        grpno.setClickable(false);
+
+                        user_id.setFocusable(false);
+                        user_id.setFocusableInTouchMode(false);
+                        user_id.setClickable(false);
+                    }
+                    else if(checkedId == R.id.dep)
+                    {
+                        depname.setFocusable(true);
+                        depname.setFocusableInTouchMode(true);
+                        depname.setClickable(true);
+
+                        grpno.setFocusable(false);
+                        grpno.setFocusableInTouchMode(false);
+                        grpno.setClickable(false);
+
+                        user_id.setFocusable(false);
+                        user_id.setFocusableInTouchMode(false);
+                        user_id.setClickable(false);
+                    }
                 }
             }
         });
@@ -76,6 +107,35 @@ public class submitTo extends AppCompatActivity {
                 {
                     dept.setChecked(false);
                     org.setChecked(false);
+
+                    if(checkedId == R.id.grp)
+                    {
+                        depname.setFocusable(false);
+                        depname.setFocusableInTouchMode(false);
+                        depname.setClickable(false);
+
+                        grpno.setFocusable(true);
+                        grpno.setFocusableInTouchMode(true);
+                        grpno.setClickable(true);
+
+                        user_id.setFocusable(false);
+                        user_id.setFocusableInTouchMode(false);
+                        user_id.setClickable(false);
+                    }
+                    else if(checkedId == R.id.indiv)
+                    {
+                        depname.setFocusable(false);
+                        depname.setFocusableInTouchMode(false);
+                        depname.setClickable(false);
+
+                        grpno.setFocusable(false);
+                        grpno.setFocusableInTouchMode(false);
+                        grpno.setClickable(false);
+
+                        user_id.setFocusable(true);
+                        user_id.setFocusableInTouchMode(true);
+                        user_id.setClickable(true);
+                    }
                 }
             }
         });
@@ -115,7 +175,7 @@ public class submitTo extends AppCompatActivity {
 
         String appmail = databaseAccess.getApproverMail();
         String usermail = databaseAccess.getEmail(userid);
-        databaseAccess.close();
+
 
         try {
             StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().

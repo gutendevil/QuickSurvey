@@ -66,6 +66,6 @@ public class createSurvey extends AppCompatActivity {
         databaseAccess.insertQues(id, que, survid);
         int options_id = databaseAccess.getMaxOpt();
         databaseAccess.insertOpt(options_id, opt1, opt2, opt3, opt4, id);
-        databaseAccess.close();
+
     }
 }

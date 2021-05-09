@@ -399,7 +399,7 @@ public class DatabaseAccess {
                 format(Calendar.getInstance().getTime());
 
         String status = "approve";
-        c = db.rawQuery("select SurvGrp.Survey_ID from SurvGrp, SurvApp where SurvGrp.Group_ID='"+grp_id+"' " +
+        c = db.rawQuery("select SurvGrp.Survey_ID as Survey_ID from SurvGrp, SurvApp where SurvGrp.Group_ID='"+grp_id+"' " +
                 "and SurvGrp.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' " +
                 "and SurvGrp.Survey_ID in (select Survey_ID from Survey where Deadline>'"+timestamp+"')", null);
         return c;
@@ -411,7 +411,7 @@ public class DatabaseAccess {
         String status = "approve";
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                 format(Calendar.getInstance().getTime());
-        c = db.rawQuery("select SurvDept.Survey_ID from SurvDept, SurvApp " +
+        c = db.rawQuery("select SurvDept.Survey_ID as Survey_ID from SurvDept, SurvApp " +
                 "where SurvDept.Dept_ID='"+dept_id+"' " +
                 "and SurvDept.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' "+
                 "and SurvDept.Survey_ID in (select Survey_ID from Survey " +
@@ -425,7 +425,7 @@ public class DatabaseAccess {
         String status = "approve";
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                 format(Calendar.getInstance().getTime());
-        c = db.rawQuery("select SurvOrg.Survey_ID from SurvOrg, SurvApp " +
+        c = db.rawQuery("select SurvOrg.Survey_ID as Survey_ID from SurvOrg, SurvApp " +
                 "where SurvOrg.Survey_ID=SurvApp.Survey_ID and SurvApp.Approval='"+status+"' "+
                 "and SurvOrg.Survey_ID in (select Survey_ID from Survey "  +
                 "where Deadline>'"+timestamp+"')", null);
