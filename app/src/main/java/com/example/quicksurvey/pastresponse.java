@@ -101,6 +101,10 @@ public class pastresponse extends AppCompatActivity {
                 per3.setText(Double.toString(optper3));
                 per4.setText(Double.toString(optper4));
 
+                System.out.println(optper1);
+                System.out.println(optper2);
+                System.out.println(optper3);
+                System.out.println(optper4);
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0,
                         ViewGroup.LayoutParams.MATCH_PARENT, optper1));
                 view2.setLayoutParams(new LinearLayout.LayoutParams(0,
@@ -154,17 +158,23 @@ public class pastresponse extends AppCompatActivity {
         if(cursor.isAfterLast())
         {
             cursor.close();
-            databaseAccess.close();
+            //databaseAccess.close();
             if(usertype.equals("user"))
             {
                 Intent intent = new Intent(pastresponse.this, User.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", user_id);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
             }
             else{
                 Intent intent = new Intent(pastresponse.this, Admin.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", user_id);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
             }
         }
         else{
@@ -253,21 +263,25 @@ public class pastresponse extends AppCompatActivity {
             }
             else{
                 cursor.close();
-                databaseAccess.close();
+                //databaseAccess.close();
                 if(usertype.equals("user"))
                 {
                     Intent intent = new Intent(pastresponse.this, User.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
                 }
                 else{
                     Intent intent = new Intent(pastresponse.this, Admin.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
                 }
             }
         }

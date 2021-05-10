@@ -150,6 +150,7 @@ public class Admin extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 int surv_id = s.getSurveyid();
+                                databaseAccess.open();
                                 String deadline = databaseAccess.getDeadline(surv_id);
                                 try {
                                     Date date2 = sdf.parse(deadline);

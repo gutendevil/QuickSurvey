@@ -453,20 +453,21 @@ public class User extends AppCompatActivity {
                 cursor2 = databaseAccess.getSurvfromGrp(grp);
                 if(cursor2!=null && cursor2.getCount()>0)
                 {
-                    int surv_id = Integer.parseInt(cursor2.getString(
-                            cursor2.getColumnIndex("Survey_ID")));
-                    String name = databaseAccess.getNameFromSurv(surv_id);
-                    String deadline = databaseAccess.getDeadline(surv_id);
+                    if(cursor2.moveToFirst()) {
+                        int surv_id = Integer.parseInt(cursor2.getString(
+                                cursor2.getColumnIndex("Survey_ID")));
+                        String name = databaseAccess.getNameFromSurv(surv_id);
+                        String deadline = databaseAccess.getDeadline(surv_id);
 
-                    if(databaseAccess.getRespCount(surv_id,user_id)==0)
-                    {
-                        try {
-                            Date date2 = sdf.parse(deadline);
-                            deadline = printDifference(date,date2);
-                            Survey survey = new Survey(name, surv_id, deadline);
-                            surveys2.add(survey);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                        if (databaseAccess.getRespCount(surv_id, user_id) == 0) {
+                            try {
+                                Date date2 = sdf.parse(deadline);
+                                deadline = printDifference(date, date2);
+                                Survey survey = new Survey(name, surv_id, deadline);
+                                surveys2.add(survey);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 

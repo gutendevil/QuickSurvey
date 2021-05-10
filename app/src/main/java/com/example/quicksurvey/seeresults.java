@@ -155,16 +155,20 @@ public class seeresults extends AppCompatActivity {
         if(cursor.isAfterLast())
         {
             cursor.close();
-            databaseAccess.close();
+            //databaseAccess.close();
             if(usertype.equals("user"))
             {
                 Intent intent = new Intent(seeresults.this, User.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", user_id);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
             else{
                 Intent intent = new Intent(seeresults.this, Admin.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("userid", user_id);
+                intent.putExtra("usertype", usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         }
@@ -253,18 +257,18 @@ public class seeresults extends AppCompatActivity {
             }
             else{
                 cursor.close();
-                databaseAccess.close();
+                //databaseAccess.close();
                 if(usertype.equals("user"))
                 {
                     Intent intent = new Intent(seeresults.this, User.class);
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 else{
                     Intent intent = new Intent(seeresults.this, Admin.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("userid", user_id);
                     intent.putExtra("usertype", usertype);
                     startActivity(intent);
