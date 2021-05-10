@@ -110,37 +110,27 @@ public class seeresults extends AppCompatActivity {
                 view4.setLayoutParams(new LinearLayout.LayoutParams(0,
                         ViewGroup.LayoutParams.MATCH_PARENT, optper4));
 
-
+                view1.setBackgroundResource(R.color.notselected);
+                view2.setBackgroundResource(R.color.notselected);
+                view3.setBackgroundResource(R.color.notselected);
+                view4.setBackgroundResource(R.color.notselected);
                 if(optper1>=Math.max(optper2, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.selected);
-                    view2.setBackgroundResource(R.color.notselected);
-                    view3.setBackgroundResource(R.color.notselected);
-                    view4.setBackgroundResource(R.color.notselected);
-
                 }
 
                 if(optper2>=Math.max(optper1, Math.max(optper3, optper4)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.selected);
-                    view3.setBackgroundResource(R.color.notselected);
-                    view4.setBackgroundResource(R.color.notselected);
                 }
 
                 if(optper3>=Math.max(optper2, Math.max(optper1, optper4)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
-                    view2.setBackgroundResource(R.color.notselected);
                     view3.setBackgroundResource(R.color.selected);
-                    view4.setBackgroundResource(R.color.notselected);
                 }
 
                 if(optper4>=Math.max(optper2, Math.max(optper3, optper1)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
-                    view2.setBackgroundResource(R.color.notselected);
-                    view3.setBackgroundResource(R.color.notselected);
                     view4.setBackgroundResource(R.color.selected);
                 }
 
@@ -221,36 +211,27 @@ public class seeresults extends AppCompatActivity {
 
 
 
+                view1.setBackgroundResource(R.color.notselected);
+                view2.setBackgroundResource(R.color.notselected);
+                view3.setBackgroundResource(R.color.notselected);
+                view4.setBackgroundResource(R.color.notselected);
                 if(optper1>=Math.max(optper2, Math.max(optper3, optper4)))
                 {
                     view1.setBackgroundResource(R.color.selected);
-                    view2.setBackgroundResource(R.color.notselected);
-                    view3.setBackgroundResource(R.color.notselected);
-                    view4.setBackgroundResource(R.color.notselected);
-
                 }
 
                 if(optper2>=Math.max(optper1, Math.max(optper3, optper4)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
                     view2.setBackgroundResource(R.color.selected);
-                    view3.setBackgroundResource(R.color.notselected);
-                    view4.setBackgroundResource(R.color.notselected);
                 }
 
                 if(optper3>=Math.max(optper2, Math.max(optper1, optper4)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
-                    view2.setBackgroundResource(R.color.notselected);
                     view3.setBackgroundResource(R.color.selected);
-                    view4.setBackgroundResource(R.color.notselected);
                 }
 
                 if(optper4>=Math.max(optper2, Math.max(optper3, optper1)))
                 {
-                    view1.setBackgroundResource(R.color.notselected);
-                    view2.setBackgroundResource(R.color.notselected);
-                    view3.setBackgroundResource(R.color.notselected);
                     view4.setBackgroundResource(R.color.selected);
                 }
 

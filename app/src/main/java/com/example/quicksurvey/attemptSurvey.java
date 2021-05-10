@@ -81,22 +81,24 @@ public class attemptSurvey extends AppCompatActivity {
         {
 
             cursor.close();
-            databaseAccess.close();
+            //databaseAccess.close();
 
             if(usertype.equals("user"))
             {
                 Intent intent = new Intent(attemptSurvey.this, User.class);
                 intent.putExtra("userid",userid);
                 intent.putExtra("usertype",usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+
             }
             else{
                 Intent intent = new Intent(attemptSurvey.this, Admin.class);
                 intent.putExtra("userid",userid);
                 intent.putExtra("usertype",usertype);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+
             }
         }
         else{
@@ -144,20 +146,22 @@ public class attemptSurvey extends AppCompatActivity {
             }
             else{
                 cursor.close();
-                databaseAccess.close();
+                //databaseAccess.close();
                 if(usertype.equals("user"))
                 {
                     Intent intent = new Intent(attemptSurvey.this, User.class);
                     intent.putExtra("userid",userid);
                     intent.putExtra("usertype",usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 else{
                     Intent intent = new Intent(attemptSurvey.this, Admin.class);
                     intent.putExtra("userid",userid);
                     intent.putExtra("usertype",usertype);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();
+
                 }
 
             }

@@ -112,6 +112,8 @@ public class notifications2 extends AppCompatActivity {
             {
                 if(cursor1.moveToFirst())
                 {
+                    userid2 = databaseAccess.getUserFromSurv(survid);
+                    username2 = databaseAccess.getName(userid2);
                     String grp_id = cursor1.getString(cursor1.getColumnIndex("Group_ID"));
                     Cursor cursor2 = databaseAccess.getUsersFromGrp(grp_id);
 
@@ -147,6 +149,8 @@ public class notifications2 extends AppCompatActivity {
             {
                 if(cursor3.moveToFirst())
                 {
+                    userid2 = databaseAccess.getUserFromSurv(survid);
+                    username2 = databaseAccess.getName(userid2);
                     String dept_id = cursor3.getString(cursor3.getColumnIndex("Dept_ID"));
                     recmail = databaseAccess.getDeptMail(dept_id);
                     if(dept_id.equals("IT"))
@@ -185,7 +189,7 @@ public class notifications2 extends AppCompatActivity {
                 message = "Hello "+recname+", \n" +
                         "\n" +
                         "We have a survey you are eligible for and might be potentially interested in. \n" +
-                        "This survey, by "+username+", is about "+survName+". Do ensure your participation in it";
+                        "This survey, by "+username2+", is about "+survName+". Do ensure your participation in it";
 
                 try {
                     //System.out.println("Mail Sent Successfully");
@@ -229,9 +233,9 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+
     }
 
     public void cancelsurvey(View view)
@@ -247,8 +251,8 @@ public class notifications2 extends AppCompatActivity {
         Intent intent = new Intent(notifications2.this, Admin.class);
         intent.putExtra("userid", userid);
         intent.putExtra("usertype", usertype);
-
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
+
     }
 }
