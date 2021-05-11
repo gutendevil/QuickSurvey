@@ -68,7 +68,7 @@ public class calendar extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(calendar.this);
         databaseAccess.open();
 
-        Cursor cursor = databaseAccess.getLiveSurveys2(userid, timeStamp);
+        Cursor cursor = databaseAccess.getLiveSurveys2(timeStamp);
 
         if(cursor!=null && cursor.getCount()>0)
         {
@@ -77,11 +77,13 @@ public class calendar extends AppCompatActivity {
                 String date = cursor.getString(cursor.getColumnIndex("Deadline"));
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formatter.setTimeZone(TimeZone.getTimeZone("IST"));
-
+                System.out.println(date);
                 try {
                     Date date2 = formatter.parse(date);
                     long time = date2.getTime();
+                    System.out.println(date2);
                     Event event = new Event(Color.GREEN, time);
+
                     calendarView.addEvent(event);
                 } catch (ParseException e) {
                     e.printStackTrace();

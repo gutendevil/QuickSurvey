@@ -423,7 +423,7 @@ public class User extends AppCompatActivity {
 
             if(surveys.size()==0)
             {
-                surveys.add(new Survey("No survey available", -1, ""));
+                surveys.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer1 = new Timer();
@@ -438,7 +438,7 @@ public class User extends AppCompatActivity {
         else{
             if(surveys.size()==0)
             {
-                surveys.add(new Survey("No survey available", -1, ""));
+                surveys.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer1 = new Timer();
@@ -487,7 +487,7 @@ public class User extends AppCompatActivity {
 
             if(surveys2.size()==0)
             {
-                surveys2.add(new Survey("No survey available", -1, ""));
+                surveys2.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer2 = new Timer();
@@ -502,7 +502,7 @@ public class User extends AppCompatActivity {
         else{
             if(surveys2.size()==0)
             {
-                surveys2.add(new Survey("No survey available", -1, ""));
+                surveys2.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer2 = new Timer();
@@ -543,7 +543,7 @@ public class User extends AppCompatActivity {
 
             if(surveys3.size()==0)
             {
-                surveys3.add(new Survey("No survey available", -1, ""));
+                surveys3.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer3 = new Timer();
@@ -558,7 +558,7 @@ public class User extends AppCompatActivity {
         else{
             if(surveys3.size()==0)
             {
-                surveys3.add(new Survey("No survey available", -1, ""));
+                surveys3.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer3 = new Timer();
@@ -598,7 +598,7 @@ public class User extends AppCompatActivity {
 
             if(surveys4.size()==0)
             {
-                surveys4.add(new Survey("No survey available", -1, ""));
+                surveys4.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer4 = new Timer();

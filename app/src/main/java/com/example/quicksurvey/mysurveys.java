@@ -235,7 +235,7 @@ public class mysurveys extends AppCompatActivity {
 
         if(live.size()==0)
         {
-            live.add(new Survey("No surveys running", -1, ""));
+            live.add(new Survey("No surveys running", 0, ""));
         }
         else{
             setTimerForAdvertise();
@@ -261,7 +261,7 @@ public class mysurveys extends AppCompatActivity {
 
         if(hosted.size() == 0)
         {
-            hosted.add(new Survey("No surveys created", -1, ""));
+            hosted.add(new Survey("No surveys created", 0, ""));
         }
 
         adapter2 = new SurveyListAdapter(getApplicationContext(),

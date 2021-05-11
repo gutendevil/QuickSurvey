@@ -548,11 +548,11 @@ public class DatabaseAccess {
         return c;
     }
 
-    public Cursor getLiveSurveys2(String user_id, String deadline)
+    public Cursor getLiveSurveys2( String deadline)
     {
         c = null;
         c = db.rawQuery("select Survey_ID,Deadline,Name from Survey" +
-                " where User_ID='"+user_id+"' and" +
+                " where " +
                 " Deadline>'"+deadline+"'", null);
 
         return c;
@@ -569,6 +569,8 @@ public class DatabaseAccess {
 
         return c;
     }
+
+
 
     public void createTable()
     {

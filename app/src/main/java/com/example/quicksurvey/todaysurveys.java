@@ -224,6 +224,9 @@ public class todaysurveys extends AppCompatActivity {
                     list.add(new Survey("No surveys ending this date", -1, ""));
 
                 }
+                else{
+                    setTimerForAdvertise();
+                }
 
                 adapter = new SurveyListAdapter(getApplicationContext(),
                         R.layout.survey_template, list);
