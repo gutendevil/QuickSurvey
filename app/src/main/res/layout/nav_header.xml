@@ -11,9 +11,10 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_launcher_round"/>
+        android:background="@drawable/ic_person_black_24dp2"/>
 
     <TextView
+        android:id="@+id/displayname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
@@ -22,6 +23,7 @@
         android:textColor="#FFFFFF"/>
 
     <TextView
+        android:id="@+id/displayemail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="IIT2019182@iiita.ac.in"

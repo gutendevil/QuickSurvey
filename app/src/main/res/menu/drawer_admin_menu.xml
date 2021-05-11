@@ -8,10 +8,12 @@
         <item android:title="All surveys"
             android:id="@+id/allsurveys"
             app:showAsAction="always|collapseActionView"
+            android:icon="@drawable/outline_ballot_24"
             />
         <item android:title="My Surveys"
             android:id="@+id/mysurveys"
             app:showAsAction="always|collapseActionView"
+            android:icon="@drawable/ic_poll_black_24dp"
             />
         <item android:title="Responses"
             android:id="@+id/atsurveys"

@@ -325,6 +325,13 @@ public class User extends AppCompatActivity {
 
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        View header = navigationView.getHeaderView(0);
+        TextView displayname = (TextView)header.findViewById(R.id.displayname);
+        TextView displayemail = (TextView)header.findViewById(R.id.displayemail);
+
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -377,6 +384,9 @@ public class User extends AppCompatActivity {
 
         databaseAccess = DatabaseAccess.getInstance(User.this);
         databaseAccess.open();
+
+        displayname.setText(databaseAccess.getName(user_id));
+        displayemail.setText(databaseAccess.findEmail(user_id));
 
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         Date date = new Date();
