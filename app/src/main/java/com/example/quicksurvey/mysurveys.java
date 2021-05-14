@@ -194,9 +194,10 @@ public class mysurveys extends AppCompatActivity {
         usertype = intent.getStringExtra("usertype");
 
         livesurveys = (ListView)findViewById(R.id.livesurveys);
+        previous = (ListView)findViewById(R.id.hostedsurvey);
         registerForContextMenu(livesurveys);
         registerForContextMenu(previous);
-        previous = (ListView)findViewById(R.id.hostedsurvey);
+
 
         databaseAccess = DatabaseAccess.getInstance(mysurveys.this);
         databaseAccess.open();
