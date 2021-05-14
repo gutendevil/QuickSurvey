@@ -190,12 +190,22 @@ public class submitTo extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(submitTo.this, User.class);
+        if(usertype.equals("user")) {
+            Intent intent = new Intent(submitTo.this, User.class);
 
-        intent.putExtra("userid", userid);
-        intent.putExtra("usertype", usertype);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+            intent.putExtra("userid", userid);
+            intent.putExtra("usertype", usertype);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(submitTo.this, Admin.class);
+
+            intent.putExtra("userid", userid);
+            intent.putExtra("usertype", usertype);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
 
 
     }
