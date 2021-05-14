@@ -194,8 +194,10 @@ public class mysurveys extends AppCompatActivity {
         usertype = intent.getStringExtra("usertype");
 
         livesurveys = (ListView)findViewById(R.id.livesurveys);
-        registerForContextMenu(livesurveys);
         previous = (ListView)findViewById(R.id.hostedsurvey);
+        registerForContextMenu(livesurveys);
+        registerForContextMenu(previous);
+
 
         databaseAccess = DatabaseAccess.getInstance(mysurveys.this);
         databaseAccess.open();
@@ -373,7 +375,7 @@ public class mysurveys extends AppCompatActivity {
                 return true;
             case R.id.exportdata2:
                 pos = info.position;
-                survey = (Survey)adapter.getItem(pos);
+                survey = (Survey)adapter2.getItem(pos);
                 surv_id = survey.getSurveyid();
                 exportDB(surv_id);
                 return true;

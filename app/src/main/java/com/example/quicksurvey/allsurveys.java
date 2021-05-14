@@ -352,7 +352,7 @@ public class allsurveys extends AppCompatActivity {
                 return true;
             case R.id.exportdata2:
                 pos = info.position;
-                survey = (Survey)adapter.getItem(pos);
+                survey = (Survey)adapter2.getItem(pos);
                 surv_id = survey.getSurveyid();
                 exportDB(surv_id);
                 return true;

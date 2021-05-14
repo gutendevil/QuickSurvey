@@ -33,11 +33,23 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(temp);
                 if(temp.equals("class_bunker"))
                 {
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(MainActivity.this);
+                    databaseAccess.open();
+                    String temp2 = databaseAccess.getPassword(temp);
 
-                    Intent intent = new Intent(getApplicationContext(), Admin.class);
-                    intent.putExtra("userid", username.getText().toString());
-                    intent.putExtra("usertype", "admin");
-                    startActivity(intent);
+                    if(password.getText().toString().equals(temp2))
+                    {
+                        Intent intent = new Intent(getApplicationContext(), Admin.class);
+                        intent.putExtra("userid", username.getText().toString());
+                        intent.putExtra("usertype", "admin");
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Invalid Username or Password",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
                 else{
 
