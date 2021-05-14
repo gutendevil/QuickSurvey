@@ -614,7 +614,7 @@ public class User extends AppCompatActivity {
         else {
             if(surveys4.size()==0)
             {
-                surveys4.add(new Survey("No survey available", -1, ""));
+                surveys4.add(new Survey("No survey available", 0, ""));
             }
             else{
                 timer4 = new Timer();

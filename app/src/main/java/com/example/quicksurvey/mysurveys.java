@@ -195,6 +195,7 @@ public class mysurveys extends AppCompatActivity {
 
         livesurveys = (ListView)findViewById(R.id.livesurveys);
         registerForContextMenu(livesurveys);
+        registerForContextMenu(previous);
         previous = (ListView)findViewById(R.id.hostedsurvey);
 
         databaseAccess = DatabaseAccess.getInstance(mysurveys.this);
@@ -373,7 +374,7 @@ public class mysurveys extends AppCompatActivity {
                 return true;
             case R.id.exportdata2:
                 pos = info.position;
-                survey = (Survey)adapter.getItem(pos);
+                survey = (Survey)adapter2.getItem(pos);
                 surv_id = survey.getSurveyid();
                 exportDB(surv_id);
                 return true;
