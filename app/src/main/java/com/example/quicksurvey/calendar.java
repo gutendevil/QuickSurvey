@@ -76,7 +76,7 @@ public class calendar extends AppCompatActivity {
             {
                 String date = cursor.getString(cursor.getColumnIndex("Deadline"));
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                formatter.setTimeZone(TimeZone.getTimeZone("IST"));
+
                 System.out.println(date);
                 try {
                     Date date2 = formatter.parse(date);
