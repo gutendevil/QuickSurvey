@@ -98,6 +98,6 @@
         android:layout_marginBottom="65dp"
         android:background="@drawable/button"
         android:onClick="getNextQue"
-        android:text="Next"
+        android:text="@string/next_attempt_survey"
         android:textColor="#F70AFF" />
 </LinearLayout>

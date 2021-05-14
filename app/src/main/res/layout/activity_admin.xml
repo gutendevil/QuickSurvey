@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
-                android:text="Individual"
+                android:text="@string/individual"
                 android:textSize="18sp" />
 
 
@@ -67,7 +67,7 @@
                 android:layout_width="252dp"
                 android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:text="Group"
+                android:text="@string/group"
                 android:textSize="18sp" />
 
 
@@ -89,7 +89,7 @@
                 android:layout_width="111dp"
                 android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:text="Department"
+                android:text="@string/department"
                 android:textSize="18sp" />
 
             <ListView
@@ -112,7 +112,7 @@
                 android:layout_width="161dp"
                 android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:text="Organization"
+                android:text="@string/organization"
                 android:textSize="18sp" />
 
 

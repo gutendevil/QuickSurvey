@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Survey Name">
+        android:hint="@string/survey_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/surveyname"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Deadline"
+        android:hint="@string/deadline"
         app:startIconDrawable="@drawable/ic_timer_black_24dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -56,6 +56,7 @@
 
 
             android:ems="10"
+            android:hint="@string/yyyy_mm_dd_hh_mm_ss"
             android:inputType="datetime" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +68,7 @@
         android:layout_marginStart="23dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="20dp"
-        android:text="To"
+        android:text="@string/to"
         android:textColor="#FFEB3B"
         android:textSize="18sp" />
 
@@ -84,7 +85,7 @@
             android:id="@+id/org"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
-            android:text="Organization"
+            android:text="@string/organization_sbt_to"
             android:buttonTint="#FFFFFF"
             android:textColor="#FFFFFF" />
 
@@ -94,7 +95,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="#FFFFFF"
             android:textColor="#FFFFFF"
-            android:text="Department" />
+            android:text="@string/department_sbt_to" />
 
     </RadioGroup>
 
@@ -112,7 +113,7 @@
             android:textColor="#FFFFFF"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
-            android:text="Group" />
+            android:text="@string/group_sbt_to" />
 
         <RadioButton
             android:id="@+id/indiv"
@@ -120,7 +121,7 @@
             android:textColor="#FFFFFF"
             android:layout_width="186dp"
             android:layout_height="wrap_content"
-            android:text="Individual" />
+            android:text="@string/individual_sbt_to" />
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +131,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded_edges2"
-        android:hint="Department ID">
+        android:hint="@string/department_id">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/depname"
@@ -149,7 +150,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded_edges2"
-        android:hint="Group ID">
+        android:hint="@string/group_id">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/grpno"
             android:layout_width="match_parent"
@@ -168,7 +169,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded_edges2"
-        android:hint="User ID">
+        android:hint="@string/user_id">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user_id"
             android:layout_width="match_parent"
@@ -188,7 +189,7 @@
         android:layout_marginBottom="18dp"
         android:background="@drawable/button2"
         android:onClick="goToHome"
-        android:text="Submit Successfully"
+        android:text="@string/submit_successfully"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />

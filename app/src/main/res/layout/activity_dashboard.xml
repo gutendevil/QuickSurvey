@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:drawablePadding="10dp"
             android:layout_weight="1"
-            android:text="Indiviudal"
+            android:text="@string/indiviudal_dashboard"
             android:textColor="#FFFFFF"
             android:background="@drawable/background_transparent"
             android:drawableTop="@drawable/ic_person_black_24dp3" />
@@ -40,7 +40,7 @@
             android:layout_width="195dp"
             android:layout_height="match_parent"
             android:drawablePadding="10dp"
-            android:text="Group"
+            android:text="@string/group_dashboard"
             android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:background="@drawable/background_transparent"

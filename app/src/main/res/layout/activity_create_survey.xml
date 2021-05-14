@@ -29,7 +29,7 @@
         android:layout_marginTop="17dp"
         android:background="@drawable/rounded_edges2"
         android:ems="10"
-        android:hint="Enter Question"
+        android:hint="@string/enter_question"
         android:inputType="textMultiLine"
         />
 
@@ -47,7 +47,7 @@
         android:layout_marginBottom="76dp"
         android:background="@drawable/button"
         android:onClick="addQuestion"
-        android:text="Add another question"
+        android:text="@string/add_another_question"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
@@ -100,7 +100,7 @@
             android:background="@drawable/rounded_edges2"
             android:ems="10"
 
-            android:hint="Option B"
+            android:hint="@string/option_b"
             android:inputType="textPersonName" />
 
         <EditText
@@ -111,7 +111,7 @@
             android:background="@drawable/rounded_edges2"
             android:ems="10"
 
-            android:hint="Option C"
+            android:hint="@string/option_c"
             android:inputType="textPersonName" />
 
         <EditText
@@ -121,7 +121,7 @@
 
             android:background="@drawable/rounded_edges2"
             android:ems="10"
-            android:hint="Option D"
+            android:hint="@string/option_d"
             android:inputType="textPersonName" />
     </LinearLayout>
 </RelativeLayout>

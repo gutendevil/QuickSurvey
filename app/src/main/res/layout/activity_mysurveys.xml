@@ -28,7 +28,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="#FFFFFF"
-        android:text="Live" />
+        android:text="@string/live_mysurveys" />
 
     <ListView
         android:id="@+id/livesurveys"
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Past Surveys"
+        android:text="@string/past_surveys_mysurveys"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"

@@ -66,7 +66,7 @@
         android:layout_marginLeft="101dp"
 
         android:layout_marginTop="25dp"
-        android:text="Change Password"
+        android:text="@string/change_password"
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
@@ -103,7 +103,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:hint="Enter New Password"
+        android:hint="@string/enter_new_password"
         app:endIconMode="password_toggle"
         app:startIconDrawable="@drawable/ic_lock_black_24dp">
 
@@ -138,7 +138,7 @@
             android:background="#FFFFFF"
             android:onClick="goToHome"
             android:padding="5dp"
-            android:text="Update"
+            android:text="@string/update"
             android:textColor="#2196F3" />
 
         <Button
