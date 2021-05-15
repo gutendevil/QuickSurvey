@@ -1,5 +1,5 @@
 # QuickSurvey
-## Quicksurvey aims to provide an integrated, convenient and reliable platform as a one-stop solution for conducting surveys and the various steps involved in the process. Quicksurvey will help connect people by improving communication and making their voice heard. 
+Quicksurvey aims to provide an integrated, convenient and reliable platform as a one-stop solution for conducting surveys and the various steps involved in the process. Quicksurvey will help connect people by improving communication and making their voice heard. 
 
 First for building the project you need to download Android Studio. Do a standard installation. <br/>After downloading the Android Studio download and install all necessary sdk components listed there.
 
