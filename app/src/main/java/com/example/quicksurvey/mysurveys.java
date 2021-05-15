@@ -309,6 +309,12 @@ public class mysurveys extends AppCompatActivity {
             MenuInflater menuInflater = getMenuInflater();
             menuInflater.inflate(R.menu.long_press, menu);
         }
+        else if(v.getId() == R.id.hostedsurvey)
+        {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.long_press_past, menu);
+        }
+
     }
 
     @Override
