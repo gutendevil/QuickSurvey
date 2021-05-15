@@ -429,6 +429,20 @@ public class User extends AppCompatActivity {
                 timer1 = new Timer();
                 TimerTask updateProfile = new CustomTimerTask();
                 timer1.scheduleAtFixedRate(updateProfile, 0, 1000);
+
+                surveyAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                                getText().toString());
+                        Intent intent = new Intent(User.this, attemptSurvey.class);
+                        intent.putExtra("usertype", "user");
+                        intent.putExtra("userid", user_id);
+                        intent.putExtra("surveyid", surv_id);
+                        startActivity(intent);
+
+                    }
+                });
             }
             adapter = new SurveyListAdapter(getApplicationContext(),
                     R.layout.survey_template, surveys);
@@ -576,6 +590,20 @@ public class User extends AppCompatActivity {
                 timer3 = new Timer();
                 TimerTask updateProfile = new CustomTimerTask3();
                 timer3.scheduleAtFixedRate(updateProfile, 0, 1000);
+
+                surveydept.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int surv_id = Integer.parseInt(((TextView)view.findViewById(R.id.surveyid2)).
+                                getText().toString());
+                        Intent intent = new Intent(User.this, attemptSurvey.class);
+                        intent.putExtra("usertype", "user");
+                        intent.putExtra("userid", user_id);
+                        intent.putExtra("surveyid", surv_id);
+                        startActivity(intent);
+
+                    }
+                });
             }
 
             adapter3 = new SurveyListAdapter(getApplicationContext(),
